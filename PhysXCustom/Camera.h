@@ -17,4 +17,3 @@ public:
 	void onKeyUp(unsigned char c) override;
 	void onMouseEvent(int x, int y) override;
 };
-

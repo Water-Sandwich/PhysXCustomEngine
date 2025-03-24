@@ -1,6 +1,7 @@
 #include "PhysicsEngine.h"
 #include <PxActor.h>
 
+using namespace std;
 using namespace physx;
 
 PhysicsEngine::PhysicsEngine()
@@ -68,16 +69,21 @@ void PhysicsEngine::PxClean() {
 
 void PhysicsEngine::CreateMaterials()
 {
+	materials.clear();
+
+	CreateMaterial("testMat", .0f, .0f, .0f);
+
+	// further materials can be added here
 }
 
-PxMaterial* PhysicsEngine::CreateMaterial()
+void PhysicsEngine::CreateMaterial(string name, PxReal staticFriction, PxReal dynamicFriction, PxReal restitution)
 {
-	return nullptr;
+	materials.insert({ name, physics->createMaterial(staticFriction, dynamicFriction, restitution) });
 }
 
-PxMaterial* PhysicsEngine::GetMaterial(std::string name)
+PxMaterial* PhysicsEngine::GetMaterial(string name)
 {
-	return nullptr;
+	return instance->materials.at(name);
 }
 
 physx::PxActor* PhysicsEngine::createStaticActor(const physx::PxTransform& pose)

@@ -33,7 +33,7 @@ public:
 	void PxClean();
 
 	void CreateMaterials();
-	physx::PxMaterial* CreateMaterial();
+	void CreateMaterial(std::string name = "default", physx::PxReal staticFriction = .0f, physx::PxReal dynamicFriction = .0f, physx::PxReal restitution = .0f);
 	static physx::PxMaterial* GetMaterial(std::string name);
 
 	static physx::PxActor* createStaticActor(const physx::PxTransform& pose);

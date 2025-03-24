@@ -31,7 +31,8 @@ void InputHandler::onKeyUp(unsigned char key, int x, int y) {
 		l->onKeyUp(key);
 }
 
-int a;
+int a; // important.
+
 void InputHandler::mouseEvent(int button, int state, int x, int y) {
 	currMouse = { button, state, x, y };
 	if (button == GLUT_LEFT_BUTTON)
@@ -78,7 +79,5 @@ bool InputHandler::isButtonDown(int button) {
 }
 
 bool InputHandler::isButtonUp(int button) {
-	if (button == GLUT_LEFT_BUTTON)
-		return !currMouse.leftDown;
-	return!currMouse.rightDown;
+	return !isButtonDown(button);
 }
