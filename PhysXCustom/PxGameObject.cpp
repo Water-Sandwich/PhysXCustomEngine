@@ -3,10 +3,10 @@
 
 PxGameObject::PxGameObject()
 {
-	Game::instance->AddActor(actor);
+	PhysicsEngine::AddActor(actor);
 }
 
 PxGameObject::~PxGameObject()
 {
-	Game::instance->RemoveActor(actor);
+	PhysicsEngine::RemoveActor(actor);
 }

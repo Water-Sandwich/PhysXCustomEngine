@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include "Vector2.h"
 
 using namespace physx;
 

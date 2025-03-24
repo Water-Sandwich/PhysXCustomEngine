@@ -12,12 +12,6 @@ std::vector<Listener*> InputHandler::listeners;
 
 int gameW, gameH, displayW, displayH;
 
-bool InputHandler::isMouseWithin(Rect rect) {
-	if ((rect.x < mXPos) && (mXPos < rect.x + rect.w) && (rect.y < mYPos) && (mYPos < rect.y + rect.h))
-		return true;
-	return false;
-}
-
 void InputHandler::setup(int _gw, int _gh, int _ww, int _wh) {
 	gameW = _gw;
 	gameH = _gh;

@@ -7,7 +7,6 @@
 #include <iostream>
 
 #include "Game.h"
-#include "Vector2.h"
 #include "InputHandler.h"
 #include <PxActor.h>
 #include "TestCube.h"
@@ -56,7 +55,8 @@ Game::Game(const std::string& title, int x, int y) {
 	glLightfv(GL_LIGHT0, GL_POSITION, position);
 	glEnable(GL_LIGHT0);
 
-	PxInit();
+	physEngine = new PhysicsEngine();
+	physEngine->PxInit();
 
 	Start();
 }
@@ -72,22 +72,9 @@ Game::~Game() {
 		DeleteObjects();
 	}
 
-	PxClean();
+	physEngine->PxClean();
 
 	instance = nullptr;
-}
-
-//responsible for rendering text to screen
-void Game::renderText(float x, float y, std::string text, Color color, bool center) {
-	glColor3f(color.r, color.g, color.b);
-	if(center)
-		x -= float(text.length()) / 65.f; // have the text somewhat centered
-
-	glRasterPos2f(x, y);
-	for (char c : text) {
-		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c);
-	}
-	glFlush();
 }
 
 void Game::DeleteAll() {
@@ -130,16 +117,6 @@ std::stringstream Game::readFromFile() {
 
 	file.close();
 	return ss;
-}
-
-void Game::AddActor(physx::PxActor* actor)
-{
-	mainScene->addActor(*actor);
-}
-
-void Game::RemoveActor(physx::PxActor* actor)
-{
-	mainScene->removeActor(*actor);
 }
 
 //calls update on every GameObject
@@ -196,45 +173,6 @@ void Game::AddObjects() {
 	}
 
 	addQueue.clear();
-}
-
-void Game::PxInit() {
-	foundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
-
-	pvd = PxCreatePvd(*foundation);
-	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate("localhost", 5425, 10);
-	pvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
-
-	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, PxTolerancesScale(), true, pvd);
-}
-
-void Game::PxSetup()
-{
-	PxSceneDesc sceneDesc(physics->getTolerancesScale());
-
-	if (!sceneDesc.cpuDispatcher) {
-		sceneDesc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
-	}
-
-	sceneDesc.filterShader = PxDefaultSimulationFilterShader;
-	
-	mainScene = physics->createScene(sceneDesc);
-
-	if (!mainScene)
-		throw "Main Scene failed to init";
-
-	mainScene->setGravity({ 0,-10,0 });
-}
-
-void Game::PxClean() {
-	if(cooking)
-		cooking->release();
-	if(physics)
-		physics->release();
-	if(pvd)
-		pvd->release();
-	if(foundation)
-		foundation->release();
 }
 
 //deletes and frees objects in deleteQueue from memory
