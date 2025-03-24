@@ -1,12 +1,19 @@
 #include "PxGameObject.h"
-#include "Game.h"
+#include "PhysicsEngine.h"
 
 PxGameObject::PxGameObject()
 {
-	PhysicsEngine::AddActor(actor);
+	actor = nullptr;
+	material = nullptr;
 }
 
 PxGameObject::~PxGameObject()
 {
-	PhysicsEngine::RemoveActor(actor);
+	if(actor)
+		PhysicsEngine::RemoveActor(actor);
+}
+
+physx::PxMaterial* PxGameObject::SetMaterial(std::string name)
+{
+	return PhysicsEngine::GetMaterial(name);
 }

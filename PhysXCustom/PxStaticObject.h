@@ -3,5 +3,6 @@
 class PxStaticObject : public PxGameObject
 {
 public:
-	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geom) override;
+	PxStaticObject(const physx::PxTransform& pose);
+	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geometry) override;
 };

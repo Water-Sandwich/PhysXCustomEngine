@@ -34,5 +34,8 @@ public:
 
 	void CreateMaterials();
 	physx::PxMaterial* CreateMaterial();
-	physx::PxMaterial* GetMaterial(std::string name);
+	static physx::PxMaterial* GetMaterial(std::string name);
+
+	static physx::PxActor* createStaticActor(const physx::PxTransform& pose);
+	static physx::PxActor* createDynamicActor(const physx::PxTransform& pose);
 };
