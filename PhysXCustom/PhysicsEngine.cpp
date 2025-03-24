@@ -85,3 +85,13 @@ PxMaterial* PhysicsEngine::GetMaterial(string name)
 {
 	return instance->materials.at(name);
 }
+
+physx::PxActor* PhysicsEngine::createStaticActor(const physx::PxTransform& pose)
+{
+	return instance->physics->createRigidStatic(pose);
+}
+
+physx::PxActor* PhysicsEngine::createDynamicActor(const physx::PxTransform& pose)
+{
+	return instance->physics->createRigidDynamic(pose);
+}

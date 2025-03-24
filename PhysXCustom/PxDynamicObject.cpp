@@ -1,10 +1,20 @@
 #include "PxDynamicObject.h"
+#include "PhysicsEngine.h"
 
-physx::PxShape* PxDynamicObject::CreateShape(const physx::PxGeometry& geom)
+using namespace physx;
+
+PxDynamicObject::PxDynamicObject(const physx::PxTransform& pose) : PxGameObject()
 {
-    return nullptr;
+    actor = PhysicsEngine::createDynamicActor(pose);
+    PhysicsEngine::AddActor(actor);
+}
+
+physx::PxShape* PxDynamicObject::CreateShape(const physx::PxGeometry& geometry)
+{
+    PxShape* shape = static_cast<PxRigidDynamic*>(actor)->createShape(geometry, *material);
 }
 
 void PxDynamicObject::SetDensity(physx::PxReal density)
 {
+    physx::PxRigidBodyExt::updateMassAndInertia(*static_cast<PxRigidDynamic*>(actor), density);
 }
