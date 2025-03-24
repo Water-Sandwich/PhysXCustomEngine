@@ -11,5 +11,5 @@ PxStaticObject::PxStaticObject(const physx::PxTransform& pose) : PxGameObject()
 
 physx::PxShape* PxStaticObject::CreateShape(const physx::PxGeometry& geometry)
 {
-    PxShape* shape = static_cast<PxRigidStatic*>(actor)->createShape(geometry, *material);
+    return static_cast<PxRigidStatic*>(actor)->createShape(geometry, *material);
 }

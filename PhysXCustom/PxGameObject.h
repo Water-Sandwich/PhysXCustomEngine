@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "PxPhysicsAPI.h"
+#include <string>
 
 class PxGameObject : public GameObject
 {
