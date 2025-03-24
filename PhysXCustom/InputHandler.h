@@ -1,6 +1,5 @@
 #pragma once
 #include <GL/freeglut_std.h>
-#include "Rect.h"
 #include <vector>
 #include "Listener.h"
 
@@ -11,8 +10,6 @@ namespace InputHandler {
 	extern std::vector<Listener*> listeners;
 
 	inline float mXPos, mYPos, mdy, mdx;
-
-	bool isMouseWithin(Rect rect);
 
 	void setup(int _gw, int _gh, int _ww, int _wh);
 

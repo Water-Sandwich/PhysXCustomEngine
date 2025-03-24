@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
 	glutInit(&argc, argv);
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
-	game = new Game("game", 960, 720);
+	game = new Game("myGame", 960, 720);
 	InputHandler::setup(960, 720, 960, 720);
 
 	glutDisplayFunc(render);

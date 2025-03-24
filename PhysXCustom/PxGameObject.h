@@ -9,5 +9,8 @@ public:
 
 	PxGameObject();
 	~PxGameObject();
-};
 
+	physx::PxMaterial* material;
+
+	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geom) = 0;
+};
