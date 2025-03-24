@@ -1,6 +1,5 @@
 #include "Listener.h"
 #include "InputHandler.h"
-#include "algorithm"
 
 Listener::Listener() {
 	InputHandler::listeners.push_back(this);
