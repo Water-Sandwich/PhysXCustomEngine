@@ -36,6 +36,10 @@ void PhysicsEngine::PxInit() {
 	pvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
 
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, PxTolerancesScale(), true, pvd);
+
+	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(PxTolerancesScale()));
+
+	PxSetup();
 }
 
 void PhysicsEngine::PxSetup()
@@ -54,6 +58,7 @@ void PhysicsEngine::PxSetup()
 		throw "Main Scene failed to init";
 
 	mainScene->setGravity({ 0,-10,0 });
+	CreateMaterials();
 }
 
 void PhysicsEngine::PxClean() {

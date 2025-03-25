@@ -16,6 +16,7 @@ private:
 	physx::PxPhysics* physics = nullptr;
 	physx::PxCooking* cooking = nullptr;
 	physx::PxScene* mainScene = nullptr;
+	//TODO: MAKE A CALLBACK CLASS?
 
 	std::map<std::string, physx::PxMaterial*> materials;
 
