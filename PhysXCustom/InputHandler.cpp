@@ -40,6 +40,8 @@ void InputHandler::mouseEvent(int button, int state, int x, int y) {
 	if (button == GLUT_RIGHT_BUTTON)
 		currMouse.rightDown = (state == GLUT_DOWN);
 
+	mXPos = x;
+	mYPos = y;
 	motionMouseEvent(x, y);
 
 	//for (auto l : listeners)

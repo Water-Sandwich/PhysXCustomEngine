@@ -6,7 +6,7 @@ physx::PxVec3 inputdir{ 0,0,0 };
 
 Camera::Camera() {
 	pos = { 0, 5, 15 };
-	dir = { 0, 1, 0, };
+	dir = { 1, 0, 0, };
 }
 void Camera::Update(float dt)
 {	
@@ -83,10 +83,12 @@ void Camera::onKeyUp(unsigned char c)
 
 void Camera::onMouseEvent(int x, int y)
 {
+	PxVec3 viewY = dir.cross(PxVec3(0, 1, 0)).getNormalized();
+
 	PxQuat qx(PxPi * x * sensitivity / 180.0f, PxVec3(0, 1, 0));
 	dir = qx.rotate(dir);
 
-	PxQuat qy(PxPi * y * sensitivity / 180.0f, PxVec3(1, 0, 0));
+	PxQuat qy(PxPi * y * sensitivity / 180.0f, viewY);
 	dir = qy.rotate(dir);
 
 	dir.normalize();
