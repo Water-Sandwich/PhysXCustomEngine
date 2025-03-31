@@ -5,8 +5,6 @@
 #include "StopWatch.h"
 #include "Game.h"
 #include "InputHandler.h"
-#include "PxPhysics.h"
-#include "PxActor.h"
 
 Game* game;
 
@@ -28,7 +26,7 @@ int main(int argc, char** argv) {
 	game = new Game("myGame", 960, 720);
 	InputHandler::setup(960, 720, 960, 720);
 
-	glutDisplayFunc(render);
+	glutDisplayFunc(render); //TODO: Calling render twice?
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	glutKeyboardFunc(InputHandler::onKeyDown); //GLUT will call onKeyDown whenever user presses a keyboard button
 	glutKeyboardUpFunc(InputHandler::onKeyUp);

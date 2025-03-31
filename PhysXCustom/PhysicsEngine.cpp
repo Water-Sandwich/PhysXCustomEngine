@@ -1,15 +1,17 @@
 #include "PhysicsEngine.h"
 #include <PxActor.h>
+#include <cassert> //TODO: Remove asserts for release build
 
 using namespace std;
 using namespace physx;
 
+#define ASSERT_PTR(ptr) assert(ptr != nullptr);
+
 PhysicsEngine::PhysicsEngine()
 {
 	if (instance)
-	{
 		throw ("creating multiple = bad :(");
-	}
+	
 	instance = this;
 }
 
@@ -30,14 +32,17 @@ void PhysicsEngine::RemoveActor(physx::PxActor* actor)
 
 void PhysicsEngine::PxInit() {
 	foundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
+	ASSERT_PTR(foundation);
 
 	pvd = PxCreatePvd(*foundation);
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate("localhost", 5425, 10);
 	pvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
+	ASSERT_PTR(pvd);
 
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, PxTolerancesScale(), true, pvd);
-
+	ASSERT_PTR(physics);
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(PxTolerancesScale()));
+	ASSERT_PTR(cooking);
 
 	PxSetup();
 }
@@ -76,7 +81,7 @@ void PhysicsEngine::CreateMaterials()
 {
 	materials.clear();
 
-	CreateMaterial("testMat", .0f, .0f, .0f);
+	CreateMaterial("testMat", .5f, .5f, .5f);
 
 	// further materials can be added here
 }
@@ -99,4 +104,9 @@ physx::PxActor* PhysicsEngine::createStaticActor(const physx::PxTransform& pose)
 physx::PxActor* PhysicsEngine::createDynamicActor(const physx::PxTransform& pose)
 {
 	return instance->physics->createRigidDynamic(pose);
+}
+
+physx::PxShape* PhysicsEngine::createShape(const physx::PxGeometry& geometry, const physx::PxMaterial& material)
+{
+	return instance->physics->createShape(geometry, material);
 }

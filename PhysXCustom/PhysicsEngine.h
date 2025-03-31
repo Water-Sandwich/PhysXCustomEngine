@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PxPhysicsAPI.h"
+#include "ErrorCallback.h"
 #include <map>
 #include <string>
 
@@ -8,7 +9,7 @@ class PhysicsEngine
 {
 private:
 	//PHYSX
-	physx::PxDefaultErrorCallback gDefaultErrorCallback;
+	ErrorCallback gDefaultErrorCallback;
 	physx::PxDefaultAllocator gDefaultAllocatorCallback;
 
 	physx::PxFoundation* foundation = nullptr;
@@ -39,4 +40,6 @@ public:
 
 	static physx::PxActor* createStaticActor(const physx::PxTransform& pose);
 	static physx::PxActor* createDynamicActor(const physx::PxTransform& pose);
+
+	static physx::PxShape* createShape(const physx::PxGeometry& geometry, const physx::PxMaterial& material);
 };

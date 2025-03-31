@@ -5,7 +5,7 @@
 class TestCube : public PxDynamicObject
 {
 public:
-	TestCube();
+	TestCube(const physx::PxTransform& pose);
 	void Update(float dt) override {};
 	void Render() override;
 };

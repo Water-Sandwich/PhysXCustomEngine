@@ -85,7 +85,7 @@ void Game::DeleteAll() {
 
 void Game::Start() {
 	DeleteAll();
-	AddObject(new TestCube());
+	AddObject(new TestCube(PxTransform(PxVec3(0,0,0))));
 }
 
 void Game::StartGame() {
