@@ -18,7 +18,14 @@ void Renderer::Setup(int x, int y, const char* title)
 	glutCreateWindow(title);
 
 	// Setup lighting
+	PxReal specular_material[] = { .1f, .1f, .1f, 1.f };
 	glEnable(GL_LIGHTING);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_COLOR_MATERIAL);
+	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 1.f);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular_material);
+	
 	PxReal ambientColor[] = { 0.2f, 0.2f, 0.2f, 1.f };
 	PxReal diffuseColor[] = { 0.7f, 0.7f, 0.7f, 1.f };
 	PxReal position[] = { 50.f, 50.f, 100.f, 0.f };
@@ -42,15 +49,16 @@ void Renderer::Start()
 	glLoadIdentity();
 }
 
-void Renderer::RenderGeometry(const physx::PxGeometryHolder& geometry)
+void Renderer::RenderGeometry(PxShape* const shape)
 {
+	const PxGeometryHolder geometry = shape->getGeometry();
 	switch (geometry.getType())
 	{
 	case PxGeometryType::eSPHERE:
 		RenderSphere(geometry);
 		break;
 	case PxGeometryType::ePLANE:
-		RenderPlane();
+		RenderPlane(shape);
 		break;
 	case PxGeometryType::eCAPSULE:
 		break;
@@ -70,9 +78,19 @@ void Renderer::RenderSphere(const physx::PxGeometryHolder& geometry)
 	glutSolidSphere(geometry.sphere().radius, 16, 16);
 }
 
-void Renderer::RenderPlane()
+void Renderer::RenderPlane(PxShape* const plane)
 {
-	glScalef(10240, 0, 10240);
+	//rotate the plane so it renders correctly (why dont we just change planeData?)
+	PxTransform pose = PxShapeExt::getGlobalPose(*plane, *plane->getActor());
+	pose.q *= PxQuat(PxHalfPi, PxVec3(0.f, 1.f, 0.f));
+	pose.p += PxVec3(0, -0.01, 0);
+	PxMat44 planePose(pose);
+
+	glPushMatrix();
+	glMultMatrixf((float*)&planePose);
+	glColor3f(1, 1, 1);
+
+	glScalef(4096, 0, 4096);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 2 * 3 * sizeof(float), planeData);
@@ -80,4 +98,6 @@ void Renderer::RenderPlane()
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+
+	glPopMatrix();
 }

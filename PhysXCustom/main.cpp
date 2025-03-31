@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
 	glutKeyboardFunc(InputHandler::onKeyDown); //GLUT will call onKeyDown whenever user presses a keyboard button
 	glutKeyboardUpFunc(InputHandler::onKeyUp);
 	glutMouseFunc(InputHandler::mouseEvent); //same as above but for mouse
-	glutPassiveMotionFunc(InputHandler::motionMouseEvent);
+	glutMotionFunc(InputHandler::motionMouseEvent);
 	glutCloseFunc(cleanup);
 	srand(time(0)); //seeding random with time, such that each game is different (unless you can play 2 games at the same exact time)
 
