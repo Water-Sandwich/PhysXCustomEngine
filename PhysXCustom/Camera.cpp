@@ -63,6 +63,7 @@ void Camera::onKeyUp(unsigned char c)
 
 void Camera::onMouseEvent(int x, int y)
 {
+
 	//printf("%i, %i\n", x, y);
 
 	//PxVec3 viewY = dir.cross(PxVec3(0, 1, 0)).getNormalized(); //returns {0,0,0}?????

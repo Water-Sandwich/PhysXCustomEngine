@@ -19,7 +19,7 @@ void PxGameObject::RenderShapes()
 {
 	for (auto shape : shapes) {
 		glMultMatrixf(GetGLMatrix(GetPose(shape)));
-		Renderer::RenderGeometry(shape->getGeometry());
+		Renderer::RenderGeometry(shape);
 	}
 }
 
