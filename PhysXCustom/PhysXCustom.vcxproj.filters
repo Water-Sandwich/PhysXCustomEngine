@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Listener.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicsEngine.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PxDynamicObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PxGameObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="PxStaticObject.cpp">
+      <Filter>Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Camera.cpp">
+      <Filter>DerivedObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>DerivedObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="TestCube.cpp">
+      <Filter>DerivedObjects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Listener.h" />
+    <ClInclude Include="MouseState.h" />
+    <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="PxStaticObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEngine.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PxDynamicObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="PxGameObject.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorCallback.h">
+      <Filter>Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Camera.h">
+      <Filter>DerivedObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>DerivedObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="TestCube.h">
+      <Filter>DerivedObjects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Physics">
+      <UniqueIdentifier>{feabcee6-3e0e-4422-a425-77df0ef7ceac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DerivedObjects">
+      <UniqueIdentifier>{dbd5bd4e-cbb4-4b6f-b354-ea564c436d9b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

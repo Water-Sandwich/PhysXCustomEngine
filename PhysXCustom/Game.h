@@ -54,8 +54,6 @@ public:
 	void DeleteAll();
 
 	void Start();
-
-	void StartGame();
 	
 	void End();
 

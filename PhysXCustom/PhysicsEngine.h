@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PxPhysicsAPI.h"
+#include "ErrorCallback.h"
 #include <map>
 #include <string>
 
@@ -8,7 +9,7 @@ class PhysicsEngine
 {
 private:
 	//PHYSX
-	physx::PxDefaultErrorCallback gDefaultErrorCallback;
+	ErrorCallback gDefaultErrorCallback;
 	physx::PxDefaultAllocator gDefaultAllocatorCallback;
 
 	physx::PxFoundation* foundation = nullptr;
@@ -16,10 +17,12 @@ private:
 	physx::PxPhysics* physics = nullptr;
 	physx::PxCooking* cooking = nullptr;
 	physx::PxScene* mainScene = nullptr;
+	//TODO: MAKE A CALLBACK CLASS?
 
 	std::map<std::string, physx::PxMaterial*> materials;
 
 	inline static PhysicsEngine* instance = nullptr;
+	bool isPaused = true;
 
 public:
 	PhysicsEngine();
@@ -31,6 +34,7 @@ public:
 	void PxInit();
 	void PxSetup();
 	void PxClean();
+	void Update(float dt);
 
 	void CreateMaterials();
 	void CreateMaterial(std::string name = "default", physx::PxReal staticFriction = .0f, physx::PxReal dynamicFriction = .0f, physx::PxReal restitution = .0f);

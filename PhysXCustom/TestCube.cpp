@@ -1,11 +1,21 @@
 #include "TestCube.h"
+#include "Renderer.h"
 #include <GL/freeglut_std.h>
+
+TestCube::TestCube(const physx::PxTransform& pose) : PxDynamicObject(pose)
+{
+	SetMaterial("testMat");
+	CreateShape(physx::PxSphereGeometry(5.f));
+	SetDensity(1);
+	InitShapes();
+}
 
 void TestCube::Render()
 {
-	//glColor3b(255,255,255);
+	glPushMatrix();
 
 	glColor3f(1.0f, 0.0f, 0.0f);
-	glutSolidSphere(2, 16, 16);
+	RenderShapes();
 
+	glPopMatrix();
 }

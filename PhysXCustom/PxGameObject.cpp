@@ -1,5 +1,7 @@
 #include "PxGameObject.h"
 #include "PhysicsEngine.h"
+#include "Renderer.h"
+#include "GL/freeglut.h"
 
 PxGameObject::PxGameObject()
 {
@@ -13,7 +15,43 @@ PxGameObject::~PxGameObject()
 		PhysicsEngine::RemoveActor(actor);
 }
 
-physx::PxMaterial* PxGameObject::SetMaterial(std::string name)
+void PxGameObject::RenderShapes()
 {
-	return PhysicsEngine::GetMaterial(name);
+	for (auto shape : shapes) {
+		glMultMatrixf(GetGLMatrix(GetPose(shape)));
+		Renderer::RenderGeometry(shape->getGeometry());
+	}
+}
+
+void PxGameObject::SetMaterial(std::string name)
+{
+	material = PhysicsEngine::GetMaterial(name);
+}
+
+physx::PxRigidActor* PxGameObject::GetRigid()
+{
+	return static_cast<physx::PxRigidActor*>(actor);
+}
+
+void PxGameObject::InitShapes()
+{
+	auto rigid = GetRigid();
+	shapes = std::vector<physx::PxShape*>(rigid->getNbShapes());
+	rigid->getShapes(static_cast<physx::PxShape**>(&shapes.front()), shapes.size());
+}
+
+physx::PxTransform PxGameObject::GetPose(physx::PxShape* shape)
+{
+	return physx::PxShapeExt::getGlobalPose(*shape, *GetRigid());
+}
+
+physx::PxMat44 PxGameObject::GetMatrix(const physx::PxTransform& transform)
+{
+	return physx::PxMat44(transform);
+}
+
+float* PxGameObject::GetGLMatrix(const physx::PxTransform& transform)
+{
+	auto mat = GetMatrix(transform);
+	return (float*)&mat;
 }

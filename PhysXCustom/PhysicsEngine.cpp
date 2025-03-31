@@ -1,15 +1,19 @@
 #include "PhysicsEngine.h"
+#include "InputHandler.h"
+
 #include <PxActor.h>
+#include <cassert> //TODO: Remove asserts for release build
 
 using namespace std;
 using namespace physx;
 
+#define ASSERT_PTR(ptr) assert(ptr != nullptr);
+
 PhysicsEngine::PhysicsEngine()
 {
 	if (instance)
-	{
 		throw ("creating multiple = bad :(");
-	}
+	
 	instance = this;
 }
 
@@ -30,12 +34,19 @@ void PhysicsEngine::RemoveActor(physx::PxActor* actor)
 
 void PhysicsEngine::PxInit() {
 	foundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
+	ASSERT_PTR(foundation);
 
 	pvd = PxCreatePvd(*foundation);
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate("localhost", 5425, 10);
 	pvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
+	ASSERT_PTR(pvd);
 
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, PxTolerancesScale(), true, pvd);
+	ASSERT_PTR(physics);
+	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(PxTolerancesScale()));
+	ASSERT_PTR(cooking);
+
+	PxSetup();
 }
 
 void PhysicsEngine::PxSetup()
@@ -53,7 +64,8 @@ void PhysicsEngine::PxSetup()
 	if (!mainScene)
 		throw "Main Scene failed to init";
 
-	mainScene->setGravity({ 0,-10,0 });
+	mainScene->setGravity({ 0,-9.81,0 });
+	CreateMaterials();
 }
 
 void PhysicsEngine::PxClean() {
@@ -67,11 +79,24 @@ void PhysicsEngine::PxClean() {
 		foundation->release();
 }
 
+void PhysicsEngine::Update(float dt)
+{
+	//TODO: Input checking is dogshit, i miss SDL input every day
+	if (InputHandler::isKeyUp('p'))
+		return;
+
+	//if (isPaused)
+	//	return;
+
+	mainScene->simulate(dt / 1000);
+	mainScene->fetchResults(true);
+}
+
 void PhysicsEngine::CreateMaterials()
 {
 	materials.clear();
 
-	CreateMaterial("testMat", .0f, .0f, .0f);
+	CreateMaterial("testMat", .5f, .5f, .5f);
 
 	// further materials can be added here
 }
