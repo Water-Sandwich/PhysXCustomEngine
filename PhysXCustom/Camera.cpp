@@ -9,69 +9,84 @@ Camera::Camera() {
 	dir = { 0, 1, 0, };
 }
 void Camera::Update(float dt)
-{
-	pos += inputdir.getNormalized() * dt * speed;
+{	
+	PxVec3 forward = dir.getNormalized();
+	PxVec3 right = forward.cross(PxVec3(0, 1, 0)).getNormalized();
+	PxVec3 up = right.cross(forward).getNormalized(); // Get a local axis based on the direction the camera is facing.
+
+	PxVec3 movement = inputdir.getNormalized();
+	movement = (forward * movement.x) + (up * movement.y) + (right * movement.z); // Multiply movement by local axis to make it relative to camera direction.
+
+	pos += movement * dt * speed;
 }
 
 //EWWWWW TODO: FIX THIS UGLY MESS YUCK
 void Camera::onKeyDown(unsigned char c)
 {
-	c = toupper(c);
-
-	//x
-	if (c == 'W')
+	switch (toupper(c))
+	{
+	case 'W':
 		inputdir.x += 1;
-	if (c == 'S')
+		break;
+
+	case 'S':
 		inputdir.x -= 1;
+		break;
 
-	//z
-	if (c == 'A')
+	case 'A':
 		inputdir.z -= 1;
-	if (c == 'D')
+		break;
+
+	case 'D':
 		inputdir.z += 1;
+		break;
 
-	//y
-	if (c == 'Z')
+	case 'Z':
 		inputdir.y -= 1;
-	if (c == 'X')
+		break;
+		
+	case 'X':
 		inputdir.y += 1;
-
+		break;
+	}
 }
 
 void Camera::onKeyUp(unsigned char c)
 {
-	c = toupper(c);
-
-	//x
-	if (c == 'W')
+	switch (toupper(c))
+	{
+	case 'W':
 		inputdir.x -= 1;
-	if (c == 'S')
+		break;
+
+	case 'S':
 		inputdir.x += 1;
+		break;
 
-	//z
-	if (c == 'A')
+	case 'A':
 		inputdir.z += 1;
-	if (c == 'D')
-		inputdir.z -= 1;
+		break;
 
-	//y
-	if (c == 'Z')
+	case 'D':
+		inputdir.z -= 1;
+		break;
+
+	case 'Z':
 		inputdir.y += 1;
-	if (c == 'X')
+		break;
+
+	case 'X':
 		inputdir.y -= 1;
+		break;
+	}
 }
 
 void Camera::onMouseEvent(int x, int y)
 {
-
-	//printf("%i, %i\n", x, y);
-
-	//PxVec3 viewY = dir.cross(PxVec3(0, 1, 0)).getNormalized(); //returns {0,0,0}?????
-	PxVec3 viewY = { 1,0,0 };
-
 	PxQuat qx(PxPi * x * sensitivity / 180.0f, PxVec3(0, 1, 0));
 	dir = qx.rotate(dir);
-	PxQuat qy(PxPi * y * sensitivity / 180.0f, viewY);
+
+	PxQuat qy(PxPi * y * sensitivity / 180.0f, PxVec3(1, 0, 0));
 	dir = qy.rotate(dir);
 
 	dir.normalize();
