@@ -8,10 +8,6 @@
 
 Game* game;
 
-void render() {
-	game->Render();
-}
-
 void cleanup() {
 	delete game;
 	game = nullptr;
@@ -26,7 +22,6 @@ int main(int argc, char** argv) {
 	game = new Game("myGame", 960, 720);
 	InputHandler::setup(960, 720, 960, 720);
 
-	glutDisplayFunc(render); //TODO: Calling render twice?
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	glutKeyboardFunc(InputHandler::onKeyDown); //GLUT will call onKeyDown whenever user presses a keyboard button
 	glutKeyboardUpFunc(InputHandler::onKeyUp);
@@ -41,7 +36,7 @@ int main(int argc, char** argv) {
 	const float maxFrameTime = 1000.0f / FPS_Limit; //in ms
 	StopWatch timer;
 
-	float deltaTime = 0; //in ms
+	float deltaTime = maxFrameTime; //in ms
 
 	//main loop
 	while (game->isRunning()) {

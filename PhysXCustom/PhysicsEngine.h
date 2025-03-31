@@ -22,6 +22,7 @@ private:
 	std::map<std::string, physx::PxMaterial*> materials;
 
 	inline static PhysicsEngine* instance = nullptr;
+	bool isPaused = true;
 
 public:
 	PhysicsEngine();
@@ -33,6 +34,7 @@ public:
 	void PxInit();
 	void PxSetup();
 	void PxClean();
+	void Update(float dt);
 
 	void CreateMaterials();
 	void CreateMaterial(std::string name = "default", physx::PxReal staticFriction = .0f, physx::PxReal dynamicFriction = .0f, physx::PxReal restitution = .0f);
@@ -40,6 +42,4 @@ public:
 
 	static physx::PxActor* createStaticActor(const physx::PxTransform& pose);
 	static physx::PxActor* createDynamicActor(const physx::PxTransform& pose);
-
-	static physx::PxShape* createShape(const physx::PxGeometry& geometry, const physx::PxMaterial& material);
 };

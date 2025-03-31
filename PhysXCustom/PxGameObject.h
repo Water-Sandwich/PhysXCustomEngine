@@ -23,4 +23,6 @@ public:
 
 	PxGameObject();
 	~PxGameObject();
+
+	void RenderShapes();
 };

@@ -7,9 +7,11 @@
 #include <iostream>
 
 #include "Game.h"
+#include "Renderer.h"
 #include "InputHandler.h"
 #include <PxActor.h>
 #include "TestCube.h"
+#include "Floor.h"
 using namespace physx;
 
 //Game has an addList and deleteList. the most important list is objectList
@@ -39,21 +41,7 @@ Game::Game(const std::string& title, int x, int y) {
 	cam = new Camera();
 	AddObject(cam);
 
-	//more GLUT init
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
-	glutInitWindowSize(x, y);
-	glutInitWindowPosition(100, 100);
-	glutCreateWindow(title.c_str());
-
-	// Setup lighting
-	glEnable(GL_LIGHTING);
-	PxReal ambientColor[] = { 0.2f, 0.2f, 0.2f, 1.f };
-	PxReal diffuseColor[] = { 0.7f, 0.7f, 0.7f, 1.f };
-	PxReal position[] = { 50.f, 50.f, 100.f, 0.f };
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientColor);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseColor);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	glEnable(GL_LIGHT0);
+	Renderer::Setup(x, y, title.c_str());
 
 	physEngine = new PhysicsEngine();
 	physEngine->PxInit();
@@ -85,18 +73,12 @@ void Game::DeleteAll() {
 
 void Game::Start() {
 	DeleteAll();
-	AddObject(new TestCube(PxTransform(PxVec3(0,0,0))));
-}
-
-void Game::StartGame() {
-	Game::instance->DeleteAll();
-
-
+	AddObject(new TestCube(PxTransform(PxIdentity)));
+	//AddObject(new Floor());
 }
 
 void Game::End() {
 	DeleteAll();
-
 }
 
 std::stringstream Game::readFromFile() {
@@ -123,28 +105,21 @@ std::stringstream Game::readFromFile() {
 void Game::Update(float deltaTime) {
 	AddObjects();
 	DeleteObjects();
+
+	physEngine->Update(deltaTime);
+
 	for (auto object : objectList)
 		object->Update(deltaTime);
+	
 }
 float a = 0;
 //calls render on every GameObject
 void Game::Render() {
-	glClearColor(0, 0.1, 0.1, 1); //backround color
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	// Setup camera
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(60.f, (float)glutGet(GLUT_WINDOW_WIDTH) / (float)glutGet(GLUT_WINDOW_HEIGHT), 1.f, 10000.f);
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	Renderer::Start();
 	gluLookAt(cam->pos.x, cam->pos.y, cam->pos.z,
 		cam->pos.x + cam->dir.x, cam->pos.y + cam->dir.y, cam->pos.z + cam->dir.z, 0, 1, 0);
 
 	for (auto obj : objectList) {
-
-	
 		obj->Render();
 	}
 

@@ -1,4 +1,6 @@
 #include "PhysicsEngine.h"
+#include "InputHandler.h"
+
 #include <PxActor.h>
 #include <cassert> //TODO: Remove asserts for release build
 
@@ -62,7 +64,7 @@ void PhysicsEngine::PxSetup()
 	if (!mainScene)
 		throw "Main Scene failed to init";
 
-	mainScene->setGravity({ 0,-10,0 });
+	mainScene->setGravity({ 0,-9.81,0 });
 	CreateMaterials();
 }
 
@@ -75,6 +77,19 @@ void PhysicsEngine::PxClean() {
 		pvd->release();
 	if (foundation)
 		foundation->release();
+}
+
+void PhysicsEngine::Update(float dt)
+{
+	//TODO: Input checking is dogshit, i miss SDL input every day
+	if (InputHandler::isKeyUp('p'))
+		return;
+
+	//if (isPaused)
+	//	return;
+
+	mainScene->simulate(dt / 1000);
+	mainScene->fetchResults(true);
 }
 
 void PhysicsEngine::CreateMaterials()
@@ -104,9 +119,4 @@ physx::PxActor* PhysicsEngine::createStaticActor(const physx::PxTransform& pose)
 physx::PxActor* PhysicsEngine::createDynamicActor(const physx::PxTransform& pose)
 {
 	return instance->physics->createRigidDynamic(pose);
-}
-
-physx::PxShape* PhysicsEngine::createShape(const physx::PxGeometry& geometry, const physx::PxMaterial& material)
-{
-	return instance->physics->createShape(geometry, material);
 }

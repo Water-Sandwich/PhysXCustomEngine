@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Box.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputHandler.cpp" />
@@ -30,12 +30,13 @@
     <ClCompile Include="PxDynamicObject.cpp" />
     <ClCompile Include="PxGameObject.cpp" />
     <ClCompile Include="PxStaticObject.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="TestCube.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Box.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ErrorCallback.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputHandler.h" />
@@ -45,6 +46,7 @@
     <ClInclude Include="PxDynamicObject.h" />
     <ClInclude Include="PxGameObject.h" />
     <ClInclude Include="PxStaticObject.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TestCube.h" />
   </ItemGroup>

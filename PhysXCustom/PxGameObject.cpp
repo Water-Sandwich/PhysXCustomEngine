@@ -1,5 +1,7 @@
 #include "PxGameObject.h"
 #include "PhysicsEngine.h"
+#include "Renderer.h"
+#include "GL/freeglut.h"
 
 PxGameObject::PxGameObject()
 {
@@ -11,6 +13,14 @@ PxGameObject::~PxGameObject()
 {
 	if(actor)
 		PhysicsEngine::RemoveActor(actor);
+}
+
+void PxGameObject::RenderShapes()
+{
+	for (auto shape : shapes) {
+		glMultMatrixf(GetGLMatrix(GetPose(shape)));
+		Renderer::RenderGeometry(shape->getGeometry());
+	}
 }
 
 void PxGameObject::SetMaterial(std::string name)
