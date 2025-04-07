@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "UserData.h"
 #include <GL/freeglut.h>
 
 using namespace physx;
@@ -54,6 +55,8 @@ void Renderer::Start()
 void Renderer::RenderGeometry(PxShape* const shape)
 {
 	const PxGeometryHolder geometry = shape->getGeometry();
+	PxVec3 colour = ((UserData*)shape->userData)->colour;
+	glColor3f(colour.x, colour.y, colour.z);
 	switch (geometry.getType())
 	{
 	case PxGeometryType::eSPHERE:
@@ -91,7 +94,6 @@ void Renderer::RenderPlane(PxShape* const plane)
 
 	glPushMatrix();
 	glMultMatrixf((float*)&planePose);
-	glColor3f(1, 1, 1);
 
 	glScalef(4096, 0, 4096);
 	glEnableClientState(GL_VERTEX_ARRAY);

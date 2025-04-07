@@ -5,8 +5,8 @@
 TestCube::TestCube(const physx::PxTransform& pose) : PxDynamicObject(pose)
 {
 	SetMaterial("testMat");
-	CreateShape(physx::PxSphereGeometry(5.f));
-	CreateShape(physx::PxCapsuleGeometry(2.f, 10.f));
+	CreateShape(physx::PxSphereGeometry(5.f), { 0, 0, 1 });
+	CreateShape(physx::PxCapsuleGeometry(2.f, 10.f), { 0, 0, 1 });
 	SetDensity(1);
 	InitShapes();
 }
@@ -15,7 +15,6 @@ void TestCube::Render()
 {
 	glPushMatrix();
 
-	glColor3f(1.0f, 0.0f, 0.0f);
 	RenderShapes();
 
 	glPopMatrix();

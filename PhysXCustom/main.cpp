@@ -32,8 +32,8 @@ int main(int argc, char** argv) {
 
 	//Game init
 	//FPS limit to avoid having the cpu be in 100% utilization
-	const float FPS_Limit = 60;
-	const float maxFrameTime = 1000.0f / FPS_Limit; //in ms
+	constexpr float FPS_Limit = 60;
+	constexpr float maxFrameTime = 1000.0f / FPS_Limit; //in ms
 	StopWatch timer;
 
 	float deltaTime = maxFrameTime; //in ms

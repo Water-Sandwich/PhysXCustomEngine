@@ -9,7 +9,7 @@ class PxGameObject : public GameObject
 protected:
 	std::vector<physx::PxShape*> shapes;
 
-	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geom) = 0;
+	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geom, const physx::PxVec3& col) = 0;
 	void SetMaterial(std::string name);
 	physx::PxRigidActor* GetRigid();
 	void InitShapes();
