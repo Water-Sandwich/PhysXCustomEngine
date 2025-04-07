@@ -10,6 +10,8 @@ static const float planeData[] = {
 	1.f, 0.f, 1.f, 0.f, 1.f, 0.f, 1.f, 0.f, -1.f, 0.f, 1.f, 0.f
 };
 
+static const float samples = 16;
+
 void Renderer::Setup(int x, int y, const char* title)
 {
 	//more GLUT init
@@ -64,6 +66,7 @@ void Renderer::RenderGeometry(PxShape* const shape)
 		RenderPlane(shape);
 		break;
 	case PxGeometryType::eCAPSULE:
+		RenderCapsule(geometry);
 		break;
 	case PxGeometryType::eBOX:
 		break;
@@ -78,7 +81,7 @@ void Renderer::RenderGeometry(PxShape* const shape)
 
 void Renderer::RenderSphere(const physx::PxGeometryHolder& geometry)
 {
-	glutSolidSphere(geometry.sphere().radius, 16, 16);
+	glutSolidSphere(geometry.sphere().radius, samples, samples);
 }
 
 void Renderer::RenderPlane(PxShape* const plane)
@@ -101,5 +104,34 @@ void Renderer::RenderPlane(PxShape* const plane)
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 
+	glPopMatrix();
+}
+
+void Renderer::RenderCapsule(const physx::PxGeometryHolder& geometry)
+{
+	const PxF32 radius = geometry.capsule().radius;
+	const PxF32 halfHeight = geometry.capsule().halfHeight;
+
+	//Sphere
+	glPushMatrix();
+	glTranslatef(halfHeight, 0.f, 0.f);
+	glutSolidSphere(radius, samples, samples);
+	glPopMatrix();
+
+	//Sphere
+	glPushMatrix();
+	glTranslatef(-halfHeight, 0.f, 0.f);
+	glutSolidSphere(radius, samples, samples);
+	glPopMatrix();
+
+	//Cylinder
+	glPushMatrix();
+	glTranslatef(-halfHeight, 0.f, 0.f);
+	glRotatef(90.f, 0.f, 1.f, 0.f);
+
+	GLUquadric* qobj = gluNewQuadric();
+	gluQuadricNormals(qobj, GLU_SMOOTH);
+	gluCylinder(qobj, radius, radius, halfHeight * 2.f, samples, samples);
+	gluDeleteQuadric(qobj);
 	glPopMatrix();
 }

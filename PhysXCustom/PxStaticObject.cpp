@@ -14,5 +14,6 @@ physx::PxShape* PxStaticObject::CreateShape(const physx::PxGeometry& geometry, c
 {
     auto s = static_cast<PxRigidStatic*>(actor)->createShape(geometry, *material);
     s->userData = new UserData(colour);
+    static_cast<PxRigidActor*>(actor)->attachShape(*s);
     return s;
 }
