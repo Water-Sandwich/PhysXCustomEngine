@@ -1,8 +1,8 @@
 #pragma once
 #include "GameObject.h"
-#include "PxDynamicObject.h"
+#include "DynamicObject.h"
 
-class TestCube : public PxDynamicObject
+class TestCube : public DynamicObject
 {
 public:
 	TestCube(const physx::PxTransform& pose);

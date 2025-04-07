@@ -3,7 +3,7 @@
 
 using namespace physx;
 
-Floor::Floor() : PxStaticObject(PxTransformFromPlaneEquation(PxPlane({0,1,0}, 0)))
+Floor::Floor() : StaticObject(PxTransformFromPlaneEquation(PxPlane({0,1,0}, 0)))
 {
 	SetMaterial("testMat");
 	CreateShape(PxPlaneGeometry(), { .5, .5, .5 });

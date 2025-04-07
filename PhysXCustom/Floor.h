@@ -1,6 +1,6 @@
 #pragma once
-#include "PxStaticObject.h"
-class Floor : public PxStaticObject
+#include "StaticObject.h"
+class Floor : public StaticObject
 {
 public:
 	Floor();

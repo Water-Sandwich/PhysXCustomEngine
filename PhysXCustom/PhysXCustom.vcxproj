@@ -30,9 +30,9 @@
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
-    <ClCompile Include="PxDynamicObject.cpp" />
+    <ClCompile Include="DynamicObject.cpp" />
     <ClCompile Include="PxGameObject.cpp" />
-    <ClCompile Include="PxStaticObject.cpp" />
+    <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RevoluteJoint.cpp" />
     <ClCompile Include="TestCube.cpp" />
@@ -50,9 +50,9 @@
     <ClInclude Include="Listener.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="PhysicsEngine.h" />
-    <ClInclude Include="PxDynamicObject.h" />
+    <ClInclude Include="DynamicObject.h" />
     <ClInclude Include="PxGameObject.h" />
-    <ClInclude Include="PxStaticObject.h" />
+    <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RevoluteJoint.h" />
@@ -61,10 +61,10 @@
     <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ResourceCompile Include="PhysXCustom.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="PhysXCustom.rc" />
+    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB44FC44-E1F5-4077-8D2B-F1BECD70599A}</ProjectGuid>

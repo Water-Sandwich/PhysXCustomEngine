@@ -2,7 +2,7 @@
 #include "Renderer.h"
 #include <GL/freeglut_std.h>
 
-TestCube::TestCube(const physx::PxTransform& pose) : PxDynamicObject(pose)
+TestCube::TestCube(const physx::PxTransform& pose) : DynamicObject(pose)
 {
 	SetMaterial("testMat");
 	CreateShape(physx::PxSphereGeometry(5.f), { 0, 0, 1 });

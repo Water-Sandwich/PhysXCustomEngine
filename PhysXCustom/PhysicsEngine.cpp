@@ -121,7 +121,17 @@ physx::PxActor* PhysicsEngine::createDynamicActor(const physx::PxTransform& pose
 	return instance->physics->createRigidDynamic(pose);
 }
 
+physx::PxDistanceJoint* PhysicsEngine::createDistanceJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
+{
+	return PxDistanceJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
+}
+
 physx::PxFixedJoint* PhysicsEngine::createFixedJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
 {
 	return PxFixedJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
+}
+
+physx::PxRevoluteJoint* PhysicsEngine::createRevoluteJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
+{
+	return PxRevoluteJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
 }

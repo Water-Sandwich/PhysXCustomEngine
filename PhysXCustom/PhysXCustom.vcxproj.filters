@@ -8,13 +8,13 @@
     <ClCompile Include="PhysicsEngine.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="PxDynamicObject.cpp">
+    <ClCompile Include="DynamicObject.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="PxGameObject.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
-    <ClCompile Include="PxStaticObject.cpp">
+    <ClCompile Include="StaticObject.cpp">
       <Filter>Physics</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp" />
@@ -28,6 +28,18 @@
       <Filter>DerivedObjects</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Joint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="DistanceJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="RevoluteJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -35,13 +47,13 @@
     <ClInclude Include="Listener.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="StopWatch.h" />
-    <ClInclude Include="PxStaticObject.h">
+    <ClInclude Include="StaticObject.h">
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="PhysicsEngine.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="PxDynamicObject.h">
+    <ClInclude Include="DynamicObject.h">
       <Filter>Physics</Filter>
     </ClInclude>
     <ClInclude Include="PxGameObject.h">
@@ -64,6 +76,19 @@
     <ClInclude Include="UserData.h">
       <Filter>Physics</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Joint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="DistanceJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="RevoluteJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
@@ -72,6 +97,12 @@
     <Filter Include="DerivedObjects">
       <UniqueIdentifier>{dbd5bd4e-cbb4-4b6f-b354-ea564c436d9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Joints">
+      <UniqueIdentifier>{17378121-506b-4525-8100-afdc632ae156}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PhysXCustom.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
