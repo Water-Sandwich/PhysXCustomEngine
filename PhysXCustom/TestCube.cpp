@@ -13,9 +13,5 @@ TestCube::TestCube(const physx::PxTransform& pose) : PxDynamicObject(pose)
 
 void TestCube::Render()
 {
-	glPushMatrix();
-
 	RenderShapes();
-
-	glPopMatrix();
 }

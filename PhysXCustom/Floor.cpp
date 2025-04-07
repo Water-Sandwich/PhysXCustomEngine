@@ -12,9 +12,5 @@ Floor::Floor() : PxStaticObject(PxTransformFromPlaneEquation(PxPlane({0,1,0}, 0)
 
 void Floor::Render()
 {
-	glPushMatrix();
-
 	RenderShapes();
-
-	glPopMatrix();
-}
+} 

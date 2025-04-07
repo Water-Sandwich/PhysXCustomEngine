@@ -73,7 +73,8 @@ void Game::DeleteAll() {
 
 void Game::Start() {
 	DeleteAll();
-	AddObject(new TestCube(PxTransform(PxIdentity)));
+	AddObject(new TestCube(PxTransform({0,5,0})));
+	AddObject(new TestCube(PxTransform({0,15,0})));
 	AddObject(new Floor());
 }
 

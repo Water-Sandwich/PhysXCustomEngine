@@ -21,8 +21,10 @@ PxGameObject::~PxGameObject()
 void PxGameObject::RenderShapes()
 {
 	for (auto shape : shapes) {
+		glPushMatrix();
 		glMultMatrixf(GetGLMatrix(GetPose(shape)));
 		Renderer::RenderGeometry(shape);
+		glPopMatrix();
 	}
 }
 
