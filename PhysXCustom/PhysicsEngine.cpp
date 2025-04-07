@@ -64,7 +64,7 @@ void PhysicsEngine::PxSetup()
 	if (!mainScene)
 		throw "Main Scene failed to init";
 
-	mainScene->setGravity({ 0,-9.81,0 });
+	mainScene->setGravity({ 10,-9.81,0 });
 	CreateMaterials();
 }
 

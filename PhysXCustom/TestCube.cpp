@@ -6,6 +6,7 @@ TestCube::TestCube(const physx::PxTransform& pose) : PxDynamicObject(pose)
 {
 	SetMaterial("testMat");
 	CreateShape(physx::PxSphereGeometry(5.f));
+	CreateShape(physx::PxCapsuleGeometry(2.f, 10.f));
 	SetDensity(1);
 	InitShapes();
 }

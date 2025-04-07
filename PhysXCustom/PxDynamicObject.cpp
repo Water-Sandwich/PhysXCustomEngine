@@ -11,7 +11,9 @@ PxDynamicObject::PxDynamicObject(const physx::PxTransform& pose) : PxGameObject(
 
 physx::PxShape* PxDynamicObject::CreateShape(const physx::PxGeometry& geometry)
 {
-    return static_cast<PxRigidDynamic*>(actor)->createShape(geometry, *material);
+    auto s = static_cast<PxRigidDynamic*>(actor)->createShape(geometry, *material);
+    static_cast<PxRigidActor*>(actor)->attachShape(*s);
+    return s;
 }
 
 void PxDynamicObject::SetDensity(physx::PxReal density)
