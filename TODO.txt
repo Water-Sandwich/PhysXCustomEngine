@@ -1,0 +1,13 @@
+CRITICAL:
+Finish and test joints
+Motors
+Triggers
+filters
+collision groups
+
+OPTIONAL:
+LIGHTING/SHADOWS
+BETTER INPUT
+.OBJ IMPORTER
+
+WALL BUILDER/CHAIN MAKER
