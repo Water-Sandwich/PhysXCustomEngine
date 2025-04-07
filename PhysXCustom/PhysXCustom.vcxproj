@@ -49,6 +49,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TestCube.h" />
+    <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

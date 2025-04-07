@@ -6,7 +6,7 @@ using namespace physx;
 Floor::Floor() : PxStaticObject(PxTransformFromPlaneEquation(PxPlane({0,1,0}, 0)))
 {
 	SetMaterial("testMat");
-	CreateShape(PxPlaneGeometry());
+	CreateShape(PxPlaneGeometry(), { .5, .5, .5 });
 	InitShapes();
 }
 
@@ -14,7 +14,6 @@ void Floor::Render()
 {
 	glPushMatrix();
 
-	glColor3f(1.0f, 0.0f, 0.0f);
 	RenderShapes();
 
 	glPopMatrix();

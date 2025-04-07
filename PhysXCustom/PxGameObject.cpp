@@ -11,6 +11,9 @@ PxGameObject::PxGameObject()
 
 PxGameObject::~PxGameObject()
 {
+	for (auto shape : shapes)
+		delete shape->userData;
+
 	if(actor)
 		PhysicsEngine::RemoveActor(actor);
 }

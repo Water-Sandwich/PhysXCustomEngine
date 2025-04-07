@@ -1,5 +1,6 @@
 #include "PxStaticObject.h"
 #include "PhysicsEngine.h"
+#include "UserData.h"
 
 using namespace physx;
 
@@ -9,7 +10,9 @@ PxStaticObject::PxStaticObject(const physx::PxTransform& pose) : PxGameObject()
     PhysicsEngine::AddActor(actor);
 }
 
-physx::PxShape* PxStaticObject::CreateShape(const physx::PxGeometry& geometry)
+physx::PxShape* PxStaticObject::CreateShape(const physx::PxGeometry& geometry, const physx::PxVec3& colour)
 {
-    return static_cast<PxRigidStatic*>(actor)->createShape(geometry, *material);
+    auto s = static_cast<PxRigidStatic*>(actor)->createShape(geometry, *material);
+    s->userData = new UserData(colour);
+    return s;
 }

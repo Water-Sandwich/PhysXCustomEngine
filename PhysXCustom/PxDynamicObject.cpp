@@ -1,5 +1,6 @@
 #include "PxDynamicObject.h"
 #include "PhysicsEngine.h"
+#include "UserData.h"
 
 using namespace physx;
 
@@ -9,9 +10,11 @@ PxDynamicObject::PxDynamicObject(const physx::PxTransform& pose) : PxGameObject(
     PhysicsEngine::AddActor(actor);
 }
 
-physx::PxShape* PxDynamicObject::CreateShape(const physx::PxGeometry& geometry)
+physx::PxShape* PxDynamicObject::CreateShape(const physx::PxGeometry& geometry, const physx::PxVec3& colour)
 {
-    return static_cast<PxRigidDynamic*>(actor)->createShape(geometry, *material);
+    auto s = static_cast<PxRigidDynamic*>(actor)->createShape(geometry, *material);
+    s->userData = new UserData(colour);
+    return s;
 }
 
 void PxDynamicObject::SetDensity(physx::PxReal density)
