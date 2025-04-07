@@ -20,10 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DistanceJoint.cpp" />
+    <ClCompile Include="FixedJoint.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="Joint.cpp" />
     <ClCompile Include="Listener.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
@@ -31,15 +34,19 @@
     <ClCompile Include="PxGameObject.cpp" />
     <ClCompile Include="PxStaticObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="RevoluteJoint.cpp" />
     <ClCompile Include="TestCube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DistanceJoint.h" />
     <ClInclude Include="ErrorCallback.h" />
+    <ClInclude Include="FixedJoint.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="Joint.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="PhysicsEngine.h" />
@@ -47,12 +54,17 @@
     <ClInclude Include="PxGameObject.h" />
     <ClInclude Include="PxStaticObject.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="RevoluteJoint.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="UserData.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="PhysXCustom.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DB44FC44-E1F5-4077-8D2B-F1BECD70599A}</ProjectGuid>

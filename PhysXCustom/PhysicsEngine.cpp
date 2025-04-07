@@ -120,3 +120,8 @@ physx::PxActor* PhysicsEngine::createDynamicActor(const physx::PxTransform& pose
 {
 	return instance->physics->createRigidDynamic(pose);
 }
+
+physx::PxFixedJoint* PhysicsEngine::createFixedJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
+{
+	return PxFixedJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
+}

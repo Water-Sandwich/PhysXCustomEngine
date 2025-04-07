@@ -42,4 +42,6 @@ public:
 
 	static physx::PxActor* createStaticActor(const physx::PxTransform& pose);
 	static physx::PxActor* createDynamicActor(const physx::PxTransform& pose);
+
+	static physx::PxFixedJoint* createFixedJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
 };
