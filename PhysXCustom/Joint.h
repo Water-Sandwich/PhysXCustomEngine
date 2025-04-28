@@ -7,6 +7,8 @@ class Joint : public GameObject
 {
 public:
 	physx::PxJoint* joint = nullptr;
+	physx::PxRigidActor* start;
+	physx::PxRigidActor* end;
 
-	Joint();
+	Joint(physx::PxRigidActor* actor1, physx::PxRigidActor* actor2);
 };
