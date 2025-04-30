@@ -13,4 +13,6 @@ public:
 	Joint(physx::PxRigidActor* actor1, physx::PxRigidActor* actor2);
 
 	void Update(float dt) override {};
+
+	void SetBreakable(physx::PxReal force, physx::PxReal torque);
 };

@@ -21,8 +21,17 @@ physx::PxReal RevoluteJoint::GetDriveVelocity()
 	return ((physx::PxRevoluteJoint*)joint)->getDriveVelocity();
 }
 
-void RevoluteJoint::SetLimits(physx::PxReal lower, physx::PxReal upper)
+void RevoluteJoint::SetHardLimits(physx::PxReal lower, physx::PxReal upper, physx::PxReal contactDist)
 {
-	((physx::PxRevoluteJoint*)joint)->setLimit(physx::PxJointAngularLimitPair(lower, upper));
+	physx::PxJointAngularLimitPair limitPair(lower, upper, contactDist);
+	((physx::PxRevoluteJoint*)joint)->setLimit(limitPair);
+	((physx::PxRevoluteJoint*)joint)->setRevoluteJointFlag(physx::PxRevoluteJointFlag::eLIMIT_ENABLED, true);
+}
+
+void RevoluteJoint::SetSoftLimits(physx::PxReal lower, physx::PxReal upper, physx::PxReal stiffness, physx::PxReal damping)
+{
+	physx::PxSpring spring(stiffness, damping);
+	physx::PxJointAngularLimitPair limitPair(lower, upper, spring);
+	((physx::PxRevoluteJoint*)joint)->setLimit(limitPair);
 	((physx::PxRevoluteJoint*)joint)->setRevoluteJointFlag(physx::PxRevoluteJointFlag::eLIMIT_ENABLED, true);
 }

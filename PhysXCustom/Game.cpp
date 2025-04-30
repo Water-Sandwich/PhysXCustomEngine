@@ -12,6 +12,7 @@
 #include <PxActor.h>
 #include "TestCube.h"
 #include "RevoluteJoint.h"
+#include "PrismaticJoint.h"
 #include "Floor.h"
 #include "Cloth.h"
 using namespace physx;
@@ -82,11 +83,10 @@ void Game::Start() {
 	auto b = new TestCube(PxTransform({ 0,15,0 }));
 	AddObject(b);
 	
-	//auto c = new RevoluteJoint((PxRigidActor*)a->actor, { 5,5,0 }, (PxRigidActor*)b->actor, { -5,-5,0 });
-	//c->SetDriveVelocity(10);
-	//AddObject(c);
+	auto c = new PrismaticJoint((PxRigidActor*)a->actor, { 5,5,0 }, (PxRigidActor*)b->actor, { -5,-5,0 });
+	AddObject(c);
   
-  auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 });
+	auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 }, { 255, 0, 0 });
 	AddObject(cloth);
 
 	auto d = new TestCube(PxTransform({ 5,50, 0 }));

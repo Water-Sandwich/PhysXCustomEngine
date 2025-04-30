@@ -4,7 +4,7 @@
 
 using namespace physx;
 
-Cloth::Cloth(const physx::PxTransform& pose, const physx::PxVec2& size, const physx::PxVec2& subDivisions) : PxGameObject()
+Cloth::Cloth(const physx::PxTransform& pose, const physx::PxVec2& size, const physx::PxVec2& subDivisions, const physx::PxVec3& colour) : PxGameObject()
 {
 	particles.reserve((subDivisions.x + 1) * (subDivisions.y + 1));
 	quads.resize(subDivisions.x * subDivisions.y);
@@ -24,10 +24,10 @@ Cloth::Cloth(const physx::PxTransform& pose, const physx::PxVec2& size, const ph
 		for (int y = 0; y < subDivisions.y; y++) {
 			int i = (y * subDivisions.y) + x;
 			Vec4I quad = {
-				(y)		* (subDivisions.x + 1) + x,
-				(y)* (subDivisions.x + 1) + (x + 1),
-				(y + 1)* (subDivisions.x + 1) + (x + 1),
-				(y + 1) * (subDivisions.x + 1) + x				
+				(y) * (subDivisions.x + 1) + x,
+				(y) * (subDivisions.x + 1) + (x + 1),
+				(y + 1) * (subDivisions.x + 1) + (x + 1),
+				(y + 1) * (subDivisions.x + 1) + x
 			};
 			quads[i] = (quad);
 		}
@@ -50,7 +50,7 @@ Cloth::Cloth(const physx::PxTransform& pose, const physx::PxVec2& size, const ph
 	actor = PhysicsEngine::createCloth(pose, fabric, particles, PxClothFlag::eSCENE_COLLISION);
 	PhysicsEngine::AddActor(actor);
 
-	color = { 255,255,255 };
+	color = { colour };
 }
 
 void Cloth::Render()
