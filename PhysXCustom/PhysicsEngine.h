@@ -4,6 +4,7 @@
 #include "ErrorCallback.h"
 #include <map>
 #include <string>
+#include <vector>
 
 class PhysicsEngine
 {
@@ -11,13 +12,14 @@ private:
 	//PHYSX
 	ErrorCallback gDefaultErrorCallback;
 	physx::PxDefaultAllocator gDefaultAllocatorCallback;
+	inline static const physx::PxVec3 gravity = { 0,-9.81,0 };
 
 	physx::PxFoundation* foundation = nullptr;
 	physx::PxPvd* pvd = nullptr;
 	physx::PxPhysics* physics = nullptr;
 	physx::PxCooking* cooking = nullptr;
 	physx::PxScene* mainScene = nullptr;
-	//TODO: MAKE A CALLBACK CLASS?
+	physx::PxPvdTransport* transport = nullptr;
 
 	std::map<std::string, physx::PxMaterial*> materials;
 
@@ -46,4 +48,6 @@ public:
 	static physx::PxDistanceJoint* createDistanceJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
 	static physx::PxFixedJoint* createFixedJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
 	static physx::PxRevoluteJoint* createRevoluteJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
+	static physx::PxClothFabric* createClothFabric(physx::PxClothMeshDesc* mesh, physx::PxVec3 _gravity = gravity);
+	static physx::PxCloth* createCloth(const physx::PxTransform& pose, physx::PxClothFabric* fabric, const std::vector<physx::PxClothParticle>& particles, physx::PxClothFlags flags = physx::PxClothFlags());
 };

@@ -40,6 +40,9 @@
     <ClCompile Include="RevoluteJoint.cpp">
       <Filter>Joints</Filter>
     </ClCompile>
+    <ClCompile Include="Cloth.cpp">
+      <Filter>DerivedObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -88,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="RevoluteJoint.h">
       <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloth.h">
+      <Filter>DerivedObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
