@@ -53,7 +53,9 @@ public:
 
 	static physx::PxDistanceJoint* createDistanceJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
 	static physx::PxFixedJoint* createFixedJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
+	static physx::PxPrismaticJoint* createPrismaticJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
 	static physx::PxRevoluteJoint* createRevoluteJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
+	static physx::PxSphericalJoint* createSphericalJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
 	static physx::PxClothFabric* createClothFabric(physx::PxClothMeshDesc* mesh, physx::PxVec3 _gravity = gravity);
 	static physx::PxCloth* createCloth(const physx::PxTransform& pose, physx::PxClothFabric* fabric, const std::vector<physx::PxClothParticle>& particles, physx::PxClothFlags flags = physx::PxClothFlags());
 	static physx::PxShape* createShape(const physx::PxGeometry& geometry, const physx::PxMaterial* material);

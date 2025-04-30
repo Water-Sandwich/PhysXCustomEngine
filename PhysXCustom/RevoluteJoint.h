@@ -8,5 +8,7 @@ public:
 	void SetDriveVelocity(physx::PxReal val);
 	physx::PxReal GetDriveVelocity();
 	
-	void SetLimits(physx::PxReal lower, physx::PxReal upper);
+
+	void SetHardLimits(physx::PxReal lower, physx::PxReal upper, physx::PxReal contactDist);
+	void SetSoftLimits(physx::PxReal lower, physx::PxReal upper, physx::PxReal stiffness, physx::PxReal damping);
 };

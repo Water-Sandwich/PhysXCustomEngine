@@ -33,7 +33,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PhysicsEngine.cpp" />
     <ClCompile Include="DynamicObject.cpp" />
+    <ClCompile Include="PrismaticJoint.cpp" />
     <ClCompile Include="PxGameObject.cpp" />
+    <ClCompile Include="SphericalJoint.cpp" />
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RevoluteJoint.cpp" />
@@ -55,7 +57,9 @@
     <ClInclude Include="MouseState.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="DynamicObject.h" />
+    <ClInclude Include="PrismaticJoint.h" />
     <ClInclude Include="PxGameObject.h" />
+    <ClInclude Include="SphericalJoint.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />

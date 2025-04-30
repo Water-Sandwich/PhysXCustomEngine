@@ -153,9 +153,19 @@ physx::PxFixedJoint* PhysicsEngine::createFixedJoint(physx::PxRigidActor* actor1
 	return PxFixedJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
 }
 
+physx::PxPrismaticJoint* PhysicsEngine::createPrismaticJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
+{
+	return PxPrismaticJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
+}
+
 physx::PxRevoluteJoint* PhysicsEngine::createRevoluteJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
 {
 	return PxRevoluteJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
+}
+
+physx::PxSphericalJoint* PhysicsEngine::createSphericalJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
+{
+	return PxSphericalJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
 }
 
 physx::PxClothFabric* PhysicsEngine::createClothFabric(physx::PxClothMeshDesc* mesh, physx::PxVec3 _gravity)

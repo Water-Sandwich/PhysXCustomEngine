@@ -20,7 +20,7 @@ private:
 	int quadsSize;
 
 public:
-	Cloth(const physx::PxTransform& pose, const physx::PxVec2& size, const physx::PxVec2& subDivisions);
+	Cloth(const physx::PxTransform& pose, const physx::PxVec2& size, const physx::PxVec2& subDivisions, const physx::PxVec3& colour);
 	void Render() override;
 
 	const std::vector<physx::PxClothParticle>* getParticles() const;
