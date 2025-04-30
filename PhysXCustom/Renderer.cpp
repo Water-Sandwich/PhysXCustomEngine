@@ -69,12 +69,13 @@ void Renderer::RenderGeometry(PxShape* const shape)
 		RenderCapsule(geometry);
 		break;
 	case PxGeometryType::eBOX:
+		RenderBox(geometry);
 		break;
 	case PxGeometryType::eCONVEXMESH:
+		RenderConvexMesh(geometry);
 		break;
 	case PxGeometryType::eTRIANGLEMESH:
-		break;
-	case PxGeometryType::eHEIGHTFIELD:
+		RenderTriangleMesh(geometry);
 		break;
 	}
 }
@@ -134,4 +135,60 @@ void Renderer::RenderCapsule(const physx::PxGeometryHolder& geometry)
 	gluCylinder(qobj, radius, radius, halfHeight * 2.f, samples, samples);
 	gluDeleteQuadric(qobj);
 	glPopMatrix();
+}
+
+void Renderer::RenderBox(const physx::PxGeometryHolder& geometry)
+{
+	PxVec3 halfSize = geometry.box().halfExtents;
+	glScalef(halfSize.x, halfSize.y, halfSize.y);
+	glutSolidCube(2.f);
+}
+
+void Renderer::RenderConvexMesh(const physx::PxGeometryHolder& geometry)
+{
+	PxConvexMesh* mesh = geometry.convexMesh().convexMesh;
+	PxU32 numPolys = mesh->getNbPolygons();
+	const PxVec3* verts = mesh->getVertices();
+	const PxU8* indices = mesh->getIndexBuffer();
+
+	for (PxU32 i = 0; i < numPolys; i++)
+	{
+		PxHullPolygon face;
+		if (mesh->getPolygonData(i, face))
+		{
+			glBegin(GL_POLYGON);
+			glNormal3f(face.mPlane[0], face.mPlane[1], face.mPlane[2]);
+			const PxU8* faceIdx = indices + face.mIndexBase;
+			for (PxU32 j = 0; j < face.mNbVerts; j++)
+			{
+				PxVec3 v = verts[faceIdx[j]];
+				glVertex3f(v.x, v.y, v.z);
+			}
+			glEnd();
+		}
+	}
+}
+
+void Renderer::RenderTriangleMesh(const physx::PxGeometryHolder& geometry)
+{
+	PxTriangleMesh* mesh = geometry.triangleMesh().triangleMesh;
+	const PxVec3* verts = mesh->getVertices();
+	PxU16* trigs = (PxU16*)mesh->getTriangles();
+	const PxU32 numTrigs = mesh->getNbTriangles();
+
+	for (PxU32 i = 0; i < numTrigs * 3; i += 3)
+	{
+		PxVec3 v0 = verts[trigs[i]];
+		PxVec3 v1 = verts[trigs[i + 1]];
+		PxVec3 v2 = verts[trigs[i + 2]];
+		PxVec3 n = (v1 - v0).cross(v2 - v0);
+		n.normalize();
+
+		glBegin(GL_POLYGON);
+		glNormal3f(n.x, n.y, n.z);
+		glVertex3f(v0.x, v0.y, v0.z);
+		glVertex3f(v1.x, v1.y, v1.z);
+		glVertex3f(v2.x, v2.y, v2.z);
+		glEnd();
+	}
 }

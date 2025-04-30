@@ -28,6 +28,23 @@ void PxGameObject::RenderShapes()
 	}
 }
 
+void PxGameObject::SetTrigger(bool isTrigger)
+{
+	for (auto shape : shapes)
+	{
+		shape->setFlag(physx::PxShapeFlag::eSIMULATION_SHAPE, !isTrigger);
+		shape->setFlag(physx::PxShapeFlag::eTRIGGER_SHAPE, isTrigger);
+	}
+}
+
+void PxGameObject::SetFilters(Layer filterGroup, Layer filterMask)
+{
+	for (auto shape : shapes)
+	{
+		shape->setSimulationFilterData(physx::PxFilterData((int)filterGroup, (int)filterMask, 0, 0));
+	}
+}
+
 void PxGameObject::SetMaterial(std::string name)
 {
 	material = PhysicsEngine::GetMaterial(name);
