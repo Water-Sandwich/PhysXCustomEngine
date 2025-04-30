@@ -10,12 +10,8 @@
 #include "Renderer.h"
 #include "InputHandler.h"
 #include <PxActor.h>
-#include "TestCube.h"
-#include "RevoluteJoint.h"
-#include "PrismaticJoint.h"
-#include "Floor.h"
-#include "Cloth.h"
-#include "Articulator.h"
+
+#include "LevelAssets.h"
 
 using namespace physx;
 
@@ -79,26 +75,6 @@ void Game::Start() {
 	DeleteAll();
 
 	AddObject(new Floor());
-
-	auto a = new TestCube(PxTransform({ 0,5,0 }));
-	AddObject(a);
-
-	auto b = new TestCube(PxTransform({ 0,15,0 }));
-	AddObject(b);
-	
-	auto c = new PrismaticJoint((PxRigidActor*)a->actor, { 5,5,0 }, (PxRigidActor*)b->actor, { -5,-5,0 });
-	AddObject(c);
-  
-	auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 }, { 255, 0, 0 });
-	AddObject(cloth);
-
-	auto d = new TestCube(PxTransform({ 5,50, 0 }));
-	AddObject(d);
-
-	auto art = new Articulator(PxBoxGeometry(1,1,1), physEngine->GetMaterial("testMat"), {55,0,0});
-	art->AddLinks(PxTransform(0, 5, -14), { 0,1,1 }, 1, 50);
-	art->AddArticulator();
-	AddObject(art);
 }
 
 //calls update on every GameObject

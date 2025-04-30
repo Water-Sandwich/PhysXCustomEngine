@@ -125,7 +125,9 @@ void PhysicsEngine::CreateMaterials()
 
 	CreateMaterial("testMat", .5f, .5f, .5f);
 
-	// further materials can be added here
+	CreateMaterial("concrete", .85f, .65f, .1f);
+	CreateMaterial("steel", .75f, .6f, .2f);
+	CreateMaterial("glass", .4f, .3f, .1f);
 }
 
 void PhysicsEngine::CreateMaterial(string name, PxReal staticFriction, PxReal dynamicFriction, PxReal restitution)

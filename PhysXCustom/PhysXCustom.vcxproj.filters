@@ -43,12 +43,29 @@
     <ClCompile Include="Cloth.cpp">
       <Filter>DerivedObjects</Filter>
     </ClCompile>
+    <ClCompile Include="PrismaticJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="SphericalJoint.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="Articulator.cpp">
+      <Filter>Joints</Filter>
+    </ClCompile>
+    <ClCompile Include="GlassFragment.cpp">
+      <Filter>BfsGame</Filter>
+    </ClCompile>
+    <ClCompile Include="SteelBeam.cpp">
+      <Filter>BfsGame</Filter>
+    </ClCompile>
+    <ClCompile Include="ConcreteBlock.cpp">
+      <Filter>BfsGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Listener.h" />
-    <ClInclude Include="MouseState.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StaticObject.h">
       <Filter>Physics</Filter>
@@ -79,7 +96,6 @@
     <ClInclude Include="UserData.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Joint.h">
       <Filter>Joints</Filter>
     </ClInclude>
@@ -95,6 +111,27 @@
     <ClInclude Include="Cloth.h">
       <Filter>DerivedObjects</Filter>
     </ClInclude>
+    <ClInclude Include="PrismaticJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="SphericalJoint.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="Articulator.h">
+      <Filter>Joints</Filter>
+    </ClInclude>
+    <ClInclude Include="GlassFragment.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
+    <ClInclude Include="SteelBeam.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
+    <ClInclude Include="ConcreteBlock.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelAssets.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
@@ -105,6 +142,9 @@
     </Filter>
     <Filter Include="Joints">
       <UniqueIdentifier>{17378121-506b-4525-8100-afdc632ae156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BfsGame">
+      <UniqueIdentifier>{f6febf75-1d8a-4ea1-be12-5202e722afa4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

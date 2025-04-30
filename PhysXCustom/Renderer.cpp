@@ -113,7 +113,7 @@ void Renderer::RenderPlane(PxShape* const plane)
 	glPushMatrix();
 	glMultMatrixf((float*)&planePose);
 
-	glScalef(4096, 0, 4096);
+	glScalef(4096, 1, 4096);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 2 * 3 * sizeof(float), planeData);
@@ -157,7 +157,7 @@ void Renderer::RenderCapsule(const physx::PxGeometryHolder& geometry)
 void Renderer::RenderBox(const physx::PxGeometryHolder& geometry)
 {
 	PxVec3 halfSize = geometry.box().halfExtents;
-	glScalef(halfSize.x, halfSize.y, halfSize.y);
+	glScalef(halfSize.x, halfSize.y, halfSize.z);
 	glutSolidCube(2.f);
 }
 
@@ -254,7 +254,7 @@ void Renderer::RenderCloth(const Cloth& cloth)
 	PxTransform pose = clothActor->getGlobalPose();
 	PxMat44 shapePose(pose);
 
-	glColor4f(color->x, color->y, color->z, 1.f);
+	glColor3f(color->x, color->y, color->z);
 
 	glPushMatrix();
 	glMultMatrixf((float*)&shapePose);

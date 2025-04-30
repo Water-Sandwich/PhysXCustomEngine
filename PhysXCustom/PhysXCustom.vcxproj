@@ -22,11 +22,13 @@
     <ClCompile Include="Articulator.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cloth.cpp" />
+    <ClCompile Include="ConcreteBlock.cpp" />
     <ClCompile Include="DistanceJoint.cpp" />
     <ClCompile Include="FixedJoint.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GlassFragment.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="Listener.cpp" />
@@ -39,20 +41,24 @@
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RevoluteJoint.cpp" />
+    <ClCompile Include="SteelBeam.cpp" />
     <ClCompile Include="TestCube.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Articulator.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cloth.h" />
+    <ClInclude Include="ConcreteBlock.h" />
     <ClInclude Include="DistanceJoint.h" />
     <ClInclude Include="ErrorCallback.h" />
     <ClInclude Include="FixedJoint.h" />
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GlassFragment.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Joint.h" />
+    <ClInclude Include="LevelAssets.h" />
     <ClInclude Include="Listener.h" />
     <ClInclude Include="PhysicsEngine.h" />
     <ClInclude Include="DynamicObject.h" />
@@ -62,6 +68,7 @@
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RevoluteJoint.h" />
+    <ClInclude Include="SteelBeam.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="UserData.h" />
