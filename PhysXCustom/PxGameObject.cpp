@@ -20,12 +20,24 @@ PxGameObject::~PxGameObject()
 
 void PxGameObject::RenderShapes()
 {
-	for (auto shape : shapes) {
-		glPushMatrix();
-		glMultMatrixf(GetGLMatrix(GetPose(shape)));
-		Renderer::RenderGeometry(shape);
-		glPopMatrix();
-	}
+	for (auto shape : shapes) 
+		RenderShape(shape);
+}
+
+void PxGameObject::RenderShape(physx::PxShape* shape)
+{
+	glPushMatrix();
+	glMultMatrixf(GetGLMatrix(GetPose(shape)));
+	Renderer::RenderGeometry(shape);
+	glPopMatrix();
+}
+
+void PxGameObject::RenderShape(physx::PxShape* shape, const physx::PxTransform& pose, const physx::PxVec3& color)
+{
+	glPushMatrix();
+	glMultMatrixf(GetGLMatrix(pose));
+	Renderer::RenderGeometry(shape, color);
+	glPopMatrix();
 }
 
 void PxGameObject::SetTrigger(bool isTrigger)

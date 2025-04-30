@@ -170,8 +170,7 @@ physx::PxCloth* PhysicsEngine::createCloth(const physx::PxTransform& pose, physx
 
 physx::PxShape* PhysicsEngine::createShape(const physx::PxGeometry& geometry, const physx::PxMaterial* material)
 {
-	//return instance->physics->createShape(geometry, *material);
-	return nullptr;
+	return instance->physics->createShape(geometry, *material);
 }
 
 physx::PxArticulation* PhysicsEngine::createArticulation()
