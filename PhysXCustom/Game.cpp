@@ -85,7 +85,7 @@ void Game::Start() {
 	DeleteAll();
 
 	AddObject(new Floor());
-	AddObject(new House(2, 5, 5, UKStandardBrick, PxTransform(0, 4, 0), BrickColor));
+	AddObject(new House(4, 5, 5, UKStandardBrick, PxTransform(0, 4, 0), BrickColor));
 
 
 	//auto a = new TestCube(PxTransform({ 0,5,0 }));
