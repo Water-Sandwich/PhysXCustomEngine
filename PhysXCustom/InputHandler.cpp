@@ -3,7 +3,11 @@
 
 #include "InputHandler.h"
 #include "Game.h"
-#include "MouseState.h"
+
+struct MouseState {
+	int button, state, x, y;
+	bool leftDown, rightDown;
+};
 
 bool currentKeys[256];
 

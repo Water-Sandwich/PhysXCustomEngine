@@ -30,7 +30,6 @@ using namespace physx;
 
 Game::Game(const std::string& title, int x, int y) {
 	//make sure theres only 1 instance of game, otherwise it likes to crash
-	filePath = std::filesystem::current_path() / "leaderboard.txt";
 
 	if (!instance) {
 		instance = this;
@@ -78,7 +77,9 @@ void Game::DeleteAll() {
 
 void Game::Start() {
 	DeleteAll();
-	
+
+	AddObject(new Floor());
+
 	auto a = new TestCube(PxTransform({ 0,5,0 }));
 	AddObject(a);
 
@@ -89,45 +90,15 @@ void Game::Start() {
 	AddObject(c);
   
 	auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 }, { 255, 0, 0 });
-  
 	AddObject(cloth);
 
 	auto d = new TestCube(PxTransform({ 5,50, 0 }));
 	AddObject(d);
-  
-	AddObject(new Floor());
 
 	auto art = new Articulator(PxBoxGeometry(1,1,1), physEngine->GetMaterial("testMat"), {55,0,0});
-	//art->AddLink(PxTransform(0, 10, -10), 1, 1);
-	//art->AddLink(PxTransform(0, 5, -14), 1, 1);
 	art->AddLinks(PxTransform(0, 5, -14), { 0,1,1 }, 1, 50);
-
 	art->AddArticulator();
 	AddObject(art);
-}
-
-void Game::End() {
-	DeleteAll();
-}
-
-std::stringstream Game::readFromFile() {
-	std::ifstream file(instance->filePath);
-	if (!file.is_open()) {
-		std::ofstream temp(instance->filePath);
-		temp.close();
-		printf("COULD NOT OPEN LEADERBOARD, CREATING FILE\n");
-		fflush(stdout);
-		return std::stringstream();
-	}
-	std::stringstream ss;
-	std::string str;
-
-	while (std::getline(file, str)) {
-		ss << str << std::endl;
-	}
-
-	file.close();
-	return ss;
 }
 
 //calls update on every GameObject
@@ -139,9 +110,11 @@ void Game::Update(float deltaTime) {
 
 	for (auto object : objectList)
 		object->Update(deltaTime);
-	
 }
+
+// essential.
 float a = 0;
+
 //calls render on every GameObject
 void Game::Render() {
 	Renderer::Start();
@@ -164,7 +137,6 @@ GameObject* Game::AddObject(GameObject* obj) {
 	instance->addQueue.push_back(obj);
 	return obj;
 }
-
 
 //will cause issues if objects create objects on start
 void Game::AddObjects() {

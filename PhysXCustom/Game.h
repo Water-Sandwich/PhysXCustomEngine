@@ -16,7 +16,6 @@
 class Game {
 private:
 	inline static int w, h;
-	std::filesystem::path filePath;
 	Camera* cam;
 	PhysicsEngine* physEngine;
 
@@ -54,8 +53,4 @@ public:
 	void DeleteAll();
 
 	void Start();
-	
-	void End();
-
-	static std::stringstream readFromFile();
 };

@@ -1,5 +1,4 @@
 #pragma once
-#include "MouseState.h"
 
 class Listener {
 public:

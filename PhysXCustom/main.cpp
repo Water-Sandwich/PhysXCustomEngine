@@ -52,6 +52,9 @@ int main(int argc, char** argv) {
 			std::this_thread::sleep_for(std::chrono::microseconds(int(maxFrameTime - deltaTime) * 1000));
 			deltaTime += maxFrameTime - deltaTime;
 		}
+		else {
+			//std::cout << "Low FPS: " << 1 / deltaTime << "\n";
+		}
 
 		glutMainLoopEvent(); //if glut doesnt receive events, the window freezes, calling this prevents this
 	}

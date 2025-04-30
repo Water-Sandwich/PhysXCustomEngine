@@ -16,8 +16,6 @@ private:
 	physx::PxClothMeshDesc mesh;
 	physx::PxClothFabric* fabric = nullptr;
 	physx::PxVec3 color;
-	int particlesSize;
-	int quadsSize;
 
 public:
 	Cloth(const physx::PxTransform& pose, const physx::PxVec2& size, const physx::PxVec2& subDivisions, const physx::PxVec3& colour);
@@ -31,4 +29,3 @@ public:
 	void Update(float dt) override {};
 	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geom, const physx::PxVec3& col) override { return nullptr; };
 };
-

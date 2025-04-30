@@ -1,5 +1,6 @@
 #pragma once
 #include "StaticObject.h"
+
 class Floor : public StaticObject
 {
 public:
@@ -7,4 +8,3 @@ public:
 	void Update(float dt) {}
 	void Render() override;
 };
-

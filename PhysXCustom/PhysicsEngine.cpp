@@ -3,14 +3,20 @@
 #include <PxPhysics.h>
 
 #include <PxActor.h>
-#include <cassert> //TODO: Remove asserts for release build
+#include <cassert>
 
 using namespace std;
 using namespace physx;
 
+#ifdef DEBUG 
+#define ASSERT_PTR(ptr);
+#else 
 #define ASSERT_PTR(ptr) assert(ptr != nullptr);
+#endif
 
-physx::PxFilterFlags PhysicsEngine::MyFilterShader(physx::PxFilterObjectAttributes attributesA, physx::PxFilterData filterDataA, physx::PxFilterObjectAttributes attributesB, physx::PxFilterData filterDataB, physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize)
+physx::PxFilterFlags PhysicsEngine::MyFilterShader(physx::PxFilterObjectAttributes attributesA, physx::PxFilterData filterDataA,
+	physx::PxFilterObjectAttributes attributesB, physx::PxFilterData filterDataB,
+	physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize)
 {
 	// If either object is a trigger.
 	if (physx::PxFilterObjectIsTrigger(attributesA) || physx::PxFilterObjectIsTrigger(attributesB))
@@ -103,9 +109,8 @@ void PhysicsEngine::PxClean() {
 
 void PhysicsEngine::Update(float dt)
 {
-	//TODO: Input checking is dogshit, i miss SDL input every day
-	if (InputHandler::isKeyUp('p'))
-		return;
+	//if (InputHandler::isKeyUp('p'))
+	//	return;
 
 	//if (isPaused)
 	//	return;

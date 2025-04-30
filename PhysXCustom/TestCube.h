@@ -1,5 +1,4 @@
 #pragma once
-#include "GameObject.h"
 #include "DynamicObject.h"
 
 class TestCube : public DynamicObject

@@ -1,5 +1,6 @@
 #pragma once
 #include "Joint.h"
+
 class FixedJoint : public Joint
 {
 public:

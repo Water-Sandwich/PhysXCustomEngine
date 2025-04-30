@@ -8,6 +8,7 @@ Camera::Camera() {
 	pos = { 0, 5, 15 };
 	dir = { 1, 0, 0, };
 }
+
 void Camera::Update(float dt)
 {	
 	PxVec3 forward = dir.getNormalized();
@@ -20,7 +21,6 @@ void Camera::Update(float dt)
 	pos += movement * dt * speed;
 }
 
-//EWWWWW TODO: FIX THIS UGLY MESS YUCK
 void Camera::onKeyDown(unsigned char c)
 {
 	switch (toupper(c))

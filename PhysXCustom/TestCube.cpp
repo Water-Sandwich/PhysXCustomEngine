@@ -1,6 +1,4 @@
 #include "TestCube.h"
-#include "Renderer.h"
-#include <GL/freeglut_std.h>
 
 TestCube::TestCube(const physx::PxTransform& pose) : DynamicObject(pose)
 {

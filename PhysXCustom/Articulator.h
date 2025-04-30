@@ -26,4 +26,3 @@ public:
 	void Update(float dt) override {};
 	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geom, const physx::PxVec3& col) { return nullptr; };
 };
-
