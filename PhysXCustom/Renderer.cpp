@@ -157,7 +157,7 @@ void Renderer::RenderCapsule(const physx::PxGeometryHolder& geometry)
 void Renderer::RenderBox(const physx::PxGeometryHolder& geometry)
 {
 	PxVec3 halfSize = geometry.box().halfExtents;
-	glScalef(halfSize.x, halfSize.y, halfSize.y);
+	glScalef(halfSize.x, halfSize.y, halfSize.z);
 	glutSolidCube(2.f);
 }
 

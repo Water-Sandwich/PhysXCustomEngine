@@ -7,7 +7,7 @@ House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& bric
 	auto brickPose = pose;
 
 	//front
-	for (int y = 0; y < bricksY; y++) {
+	for (int y = 0; y < wallHeight; y++) {
 		brickPose.p.x = pose.p.x;
 		if (y % 2 == 0)
 			brickPose.p.x += brickSize.x;
@@ -27,7 +27,7 @@ House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& bric
 	brickPose.p.y = pose.p.y;
 	brickPose.p.x -= brickSize.z;
 
-	for (int y = 0; y < bricksY; y++) {
+	for (int y = 0; y < wallHeight; y++) {
 		brickPose.p.z = pose.p.z + brickSize.z;
 		int temp = 0;
 		if (y % 2 == 1) {
@@ -35,7 +35,7 @@ House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& bric
 			temp = -1;
 		}
 
-		for (int z = 0; z < bricksX + temp + 1; z++) {
+		for (int z = 0; z < bricksY + temp + 1; z++) {
 			auto brick = new HouseBrick(brickPose, brickSize, color);
 			bricks.push_back(brick);
 			brickPose.p.z += (brickSize.x * 2) + gap;
@@ -46,10 +46,11 @@ House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& bric
 
 	//side 2
 
-	brickPose.p.y = pose.p.y;
-	brickPose.p.x -= (brickSize.z * 2) + (brickSize.x * bricksX * 2) + (brickSize.x * gap);
+	brickPose.p = pose.p;
+	//brickPose.p.x -= (brickSize.z * 2) + (brickSize.x * bricksX * 2) + (brickSize.x * gap * 2);
+	brickPose.p.x -= brickSize.z;
 
-	for (int y = 0; y < bricksY; y++) {
+	for (int y = 0; y < wallHeight; y++) {
 		brickPose.p.z = pose.p.z + brickSize.z;
 		int temp = 0;
 		if (y % 2 == 1) {
@@ -57,7 +58,7 @@ House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& bric
 			temp = -1;
 		}
 
-		for (int z = 0; z < bricksX + temp + 1; z++) {
+		for (int z = 0; z < bricksY + temp + 1; z++) {
 			auto brick = new HouseBrick(brickPose, brickSize, color);
 			bricks.push_back(brick);
 			brickPose.p.z += (brickSize.x * 2) + gap;

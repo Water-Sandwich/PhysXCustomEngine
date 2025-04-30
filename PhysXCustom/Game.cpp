@@ -29,6 +29,9 @@ using namespace physx;
 //GAME STATE FLOW
 //main() -> Game() -> Game::Start() -> Game::StartGame() -> Cannon() -> Game::End() -> Game::Start()
 
+inline static PxVec3 UKStandardBrick = PxVec3(2.15, .65, 1.025);
+inline static PxVec3 BrickColor = PxVec3(0.2, 0.05, 0.05);
+
 Game::Game(const std::string& title, int x, int y) {
 	//make sure theres only 1 instance of game, otherwise it likes to crash
 
@@ -82,7 +85,7 @@ void Game::Start() {
 	DeleteAll();
 
 	AddObject(new Floor());
-	AddObject(new House(10, 5, 5, { 4,2,2 }, PxTransform(0, 4, 0), { 0.2,0.05,0.05 }));
+	AddObject(new House(2, 5, 5, UKStandardBrick, PxTransform(0, 4, 0), BrickColor));
 
 
 	//auto a = new TestCube(PxTransform({ 0,5,0 }));

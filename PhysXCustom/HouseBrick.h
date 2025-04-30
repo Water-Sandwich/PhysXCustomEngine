@@ -1,5 +1,7 @@
 #pragma once
 #include "DynamicObject.h"
+#include <PxPhysicsAPI.h>
+
 class HouseBrick : public DynamicObject
 {
 public:
