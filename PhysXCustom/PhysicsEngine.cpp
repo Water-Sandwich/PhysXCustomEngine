@@ -61,7 +61,7 @@ void PhysicsEngine::PxSetup()
 		sceneDesc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 	}
 
-	sceneDesc.filterShader = PxDefaultSimulationFilterShader;
+	sceneDesc.filterShader = MyFilterShader;
 
 	mainScene = physics->createScene(sceneDesc);
 
