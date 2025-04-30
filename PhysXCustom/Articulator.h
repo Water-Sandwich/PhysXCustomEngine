@@ -16,10 +16,12 @@ private:
 public:
 	Articulator(const physx::PxGeometry& geometry, const physx::PxMaterial* mat, const physx::PxVec3& color);
 	void Render() override;
-	void AddLink(const physx::PxTransform pose, float mass, float distanceBetweenJoints);
+	void AddLink(const physx::PxTransform& pose, float mass, float distanceBetweenJoints);
+	void AddLinks(physx::PxTransform startPose, const physx::PxVec3& direction, float mass, int numLinks);
 	void AddArticulator();
 	
 	physx::PxArticulationLink* getFirstLink();
+	physx::PxArticulationLink* getLastLink();
 
 	void Update(float dt) override {};
 	virtual physx::PxShape* CreateShape(const physx::PxGeometry& geom, const physx::PxVec3& col) { return nullptr; };

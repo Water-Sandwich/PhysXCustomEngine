@@ -97,8 +97,9 @@ void Game::Start() {
 	AddObject(new Floor());
 
 	auto art = new Articulator(PxBoxGeometry(1,1,1), physEngine->GetMaterial("testMat"), {55,0,0});
-	art->AddLink(PxTransform(0, 5, -10), 1, 10);
-	art->AddLink(PxTransform(0, 5, -14), 1, 10);
+	//art->AddLink(PxTransform(0, 10, -10), 1, 1);
+	//art->AddLink(PxTransform(0, 5, -14), 1, 1);
+	art->AddLinks(PxTransform(0, 5, -14), { 0,1,1 }, 1, 50);
 
 	art->AddArticulator();
 	AddObject(art);

@@ -23,13 +23,13 @@ void Articulator::Render()
 	}
 }
 
-void Articulator::AddLink(const physx::PxTransform pose, float mass, float distanceBetweenJoints)
+void Articulator::AddLink(const physx::PxTransform& pose, float mass, float distanceBetweenJoints)
 {
 	PxArticulationLink* link;
 	if(links.size() == 0)
 		link = articulator->createLink(NULL, pose);
 	else
-		link = articulator->createLink(links[links.size() - 1], pose);
+		link = articulator->createLink(links.back(), pose);
 
 	links.push_back(link);
 	link->attachShape(*shape);
@@ -45,6 +45,15 @@ void Articulator::AddLink(const physx::PxTransform pose, float mass, float dista
 	PhysicsEngine::AddActor(link);
 }
 
+void Articulator::AddLinks(physx::PxTransform startPose, const physx::PxVec3& direction, float mass, int numLinks)
+{
+	float dist = direction.magnitude();
+	for (int i = 0; i < numLinks; i++) {
+		AddLink(startPose, mass, dist / 2);
+		startPose.p += direction;
+	}
+}
+
 void Articulator::AddArticulator()
 {
 	PhysicsEngine::addArticulation(articulator);
@@ -55,5 +64,13 @@ physx::PxArticulationLink* Articulator::getFirstLink()
 	if (links.size() == 0)
 		return nullptr;
 
-	return links[0];
+	return links.front();
+}
+
+physx::PxArticulationLink* Articulator::getLastLink()
+{
+	if (links.size() == 0)
+		return nullptr;
+
+	return links.back();
 }
