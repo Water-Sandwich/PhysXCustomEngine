@@ -10,6 +10,23 @@ using namespace physx;
 
 #define ASSERT_PTR(ptr) assert(ptr != nullptr);
 
+physx::PxFilterFlags PhysicsEngine::MyFilterShader(physx::PxFilterObjectAttributes attributesA, physx::PxFilterData filterDataA, physx::PxFilterObjectAttributes attributesB, physx::PxFilterData filterDataB, physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize)
+{
+	// If either object is a trigger.
+	if (physx::PxFilterObjectIsTrigger(attributesA) || physx::PxFilterObjectIsTrigger(attributesB))
+	{
+		pairFlags = physx::PxPairFlag::eTRIGGER_DEFAULT;
+		return physx::PxFilterFlags();
+	}
+
+	pairFlags = physx::PxPairFlag::eCONTACT_DEFAULT;
+
+	// Custom collision filtering handling:
+	// ---
+
+	return physx::PxFilterFlags();
+}
+
 PhysicsEngine::PhysicsEngine()
 {
 	if (instance)
@@ -149,4 +166,19 @@ physx::PxClothFabric* PhysicsEngine::createClothFabric(physx::PxClothMeshDesc* m
 physx::PxCloth* PhysicsEngine::createCloth(const physx::PxTransform& pose, physx::PxClothFabric* fabric, const std::vector<physx::PxClothParticle>& particles, physx::PxClothFlags flags)
 {
 	return instance->physics->createCloth(pose, *fabric, &particles[0], flags);
+}
+
+physx::PxShape* PhysicsEngine::createShape(const physx::PxGeometry& geometry, const physx::PxMaterial* material)
+{
+	return instance->physics->createShape(geometry, *material);
+}
+
+physx::PxArticulation* PhysicsEngine::createArticulation()
+{
+	return instance->physics->createArticulation();
+}
+
+void PhysicsEngine::addArticulation(physx::PxArticulation* art)
+{
+	instance->mainScene->addArticulation(*art);
 }

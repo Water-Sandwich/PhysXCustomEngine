@@ -57,13 +57,30 @@ void Renderer::RenderGeometry(PxShape* const shape)
 	const PxGeometryHolder geometry = shape->getGeometry();
 	PxVec3 colour = ((UserData*)shape->userData)->colour;
 	glColor3f(colour.x, colour.y, colour.z);
+
+	if (geometry.getType() == PxGeometryType::ePLANE)
+		RenderPlane(shape);
+	else
+		SwitchGeometry(geometry);
+}
+
+void Renderer::RenderGeometry(physx::PxShape* const shape, const physx::PxVec3& color)
+{
+	const PxGeometryHolder geometry = shape->getGeometry();
+	glColor3f(color.x, color.y, color.z);
+
+	if (geometry.getType() == PxGeometryType::ePLANE)
+		RenderPlane(shape);
+	else
+		SwitchGeometry(geometry);
+}
+
+void Renderer::SwitchGeometry(const physx::PxGeometryHolder& geometry)
+{
 	switch (geometry.getType())
 	{
 	case PxGeometryType::eSPHERE:
 		RenderSphere(geometry);
-		break;
-	case PxGeometryType::ePLANE:
-		RenderPlane(shape);
 		break;
 	case PxGeometryType::eCAPSULE:
 		RenderCapsule(geometry);

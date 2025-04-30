@@ -7,6 +7,8 @@ namespace Renderer {
 	void Start();
 
 	void RenderGeometry(physx::PxShape* const shape);
+	void RenderGeometry(physx::PxShape* const shape, const physx::PxVec3& color);
+	void SwitchGeometry(const physx::PxGeometryHolder& geometry);
 
 	void RenderSphere(const physx::PxGeometryHolder& geometry);
 	void RenderPlane(physx::PxShape* const shape);

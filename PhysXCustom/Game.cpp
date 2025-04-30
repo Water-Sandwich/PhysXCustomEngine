@@ -14,6 +14,8 @@
 #include "RevoluteJoint.h"
 #include "Floor.h"
 #include "Cloth.h"
+#include "Articulator.h"
+
 using namespace physx;
 
 //Game has an addList and deleteList. the most important list is objectList
@@ -86,13 +88,21 @@ void Game::Start() {
 	//c->SetDriveVelocity(10);
 	//AddObject(c);
   
-  auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 });
+	auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 });
 	AddObject(cloth);
 
 	auto d = new TestCube(PxTransform({ 5,50, 0 }));
 	AddObject(d);
   
 	AddObject(new Floor());
+
+	auto art = new Articulator(PxBoxGeometry(1,1,1), physEngine->GetMaterial("testMat"), {55,0,0});
+	//art->AddLink(PxTransform(0, 10, -10), 1, 1);
+	//art->AddLink(PxTransform(0, 5, -14), 1, 1);
+	art->AddLinks(PxTransform(0, 5, -14), { 0,1,1 }, 1, 50);
+
+	art->AddArticulator();
+	AddObject(art);
 }
 
 void Game::End() {

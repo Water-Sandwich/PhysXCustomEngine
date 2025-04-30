@@ -27,12 +27,15 @@ protected:
 
 public:
 	physx::PxActor* actor;
-	physx::PxMaterial* material;
+	const physx::PxMaterial* material;
 
 	PxGameObject();
 	~PxGameObject();
 
 	void RenderShapes();
+	void RenderShape(physx::PxShape* shape);
+	void RenderShape(physx::PxShape* shape, const physx::PxTransform& pose, const physx::PxVec3& color);
+
 	void SetTrigger(bool isTrigger);
 	void SetFilters(Layer filterGroup, Layer filterMask);
 };

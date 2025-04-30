@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Articulator.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cloth.cpp" />
     <ClCompile Include="DistanceJoint.cpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="TestCube.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Articulator.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cloth.h" />
     <ClInclude Include="DistanceJoint.h" />
