@@ -24,6 +24,27 @@ private:
 	inline static PhysicsEngine* instance = nullptr;
 	bool isPaused = true;
 
+	static physx::PxFilterFlags MyFilterShader(
+		physx::PxFilterObjectAttributes attributesA, physx::PxFilterData filterDataA,
+		physx::PxFilterObjectAttributes attributesB, physx::PxFilterData filterDataB,
+		physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize)
+	{
+		// If either object is a trigger.
+		if (physx::PxFilterObjectIsTrigger(attributesA) || physx::PxFilterObjectIsTrigger(attributesB))
+		{
+			pairFlags = physx::PxPairFlag::eTRIGGER_DEFAULT;
+			return physx::PxFilterFlags();
+		}
+
+		pairFlags = physx::PxPairFlag::eCONTACT_DEFAULT;
+
+		// Custom collision filtering handling:
+		// ---
+
+		return physx::PxFilterFlags();
+	}
+
+
 public:
 	PhysicsEngine();
 	~PhysicsEngine();

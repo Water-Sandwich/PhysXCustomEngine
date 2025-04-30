@@ -4,6 +4,14 @@
 #include <string>
 #include <vector>
 
+enum class Layer : int
+{
+	TestA	= (1 << 0),
+	TestB	= (1 << 1),
+	TestC	= (1 << 2)
+};
+
+
 class PxGameObject : public GameObject
 {
 protected:
@@ -25,4 +33,6 @@ public:
 	~PxGameObject();
 
 	void RenderShapes();
+	void SetTrigger(bool isTrigger);
+	void SetFilters(Layer filterGroup, Layer filterMask);
 };
