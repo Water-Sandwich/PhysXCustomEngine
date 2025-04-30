@@ -38,4 +38,6 @@ public:
 
 	void SetTrigger(bool isTrigger);
 	void SetFilters(Layer filterGroup, Layer filterMask);
+
+	virtual void Render() override;
 };

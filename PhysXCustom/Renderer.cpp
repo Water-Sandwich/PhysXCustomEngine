@@ -113,7 +113,7 @@ void Renderer::RenderPlane(PxShape* const plane)
 	glPushMatrix();
 	glMultMatrixf((float*)&planePose);
 
-	glScalef(4096, 0, 4096);
+	glScalef(4096, 1, 4096);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glVertexPointer(3, GL_FLOAT, 2 * 3 * sizeof(float), planeData);

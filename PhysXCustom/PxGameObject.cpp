@@ -57,6 +57,11 @@ void PxGameObject::SetFilters(Layer filterGroup, Layer filterMask)
 	}
 }
 
+void PxGameObject::Render()
+{
+	RenderShapes();
+}
+
 void PxGameObject::SetMaterial(std::string name)
 {
 	material = PhysicsEngine::GetMaterial(name);

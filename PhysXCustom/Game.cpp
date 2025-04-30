@@ -16,6 +16,7 @@
 #include "Floor.h"
 #include "Cloth.h"
 #include "Articulator.h"
+#include "House.h"
 
 using namespace physx;
 
@@ -50,6 +51,8 @@ Game::Game(const std::string& title, int x, int y) {
 	physEngine = new PhysicsEngine();
 	physEngine->PxInit();
 
+	InputHandler::setup(x, y, x, y);
+
 	Start();
 }
 
@@ -79,26 +82,28 @@ void Game::Start() {
 	DeleteAll();
 
 	AddObject(new Floor());
+	AddObject(new House(10, 5, 5, { 4,2,2 }, PxTransform(0, 4, 0), { 0.2,0.05,0.05 }));
 
-	auto a = new TestCube(PxTransform({ 0,5,0 }));
-	AddObject(a);
 
-	auto b = new TestCube(PxTransform({ 0,15,0 }));
-	AddObject(b);
-	
-	auto c = new PrismaticJoint((PxRigidActor*)a->actor, { 5,5,0 }, (PxRigidActor*)b->actor, { -5,-5,0 });
-	AddObject(c);
-  
-	auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 }, { 255, 0, 0 });
-	AddObject(cloth);
+	//auto a = new TestCube(PxTransform({ 0,5,0 }));
+	//AddObject(a);
 
-	auto d = new TestCube(PxTransform({ 5,50, 0 }));
-	AddObject(d);
+	//auto b = new TestCube(PxTransform({ 0,15,0 }));
+	//AddObject(b);
+	//
+	//auto c = new PrismaticJoint((PxRigidActor*)a->actor, { 5,5,0 }, (PxRigidActor*)b->actor, { -5,-5,0 });
+	//AddObject(c);
+ // 
+	//auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 }, { 255, 0, 0 });
+	//AddObject(cloth);
 
-	auto art = new Articulator(PxBoxGeometry(1,1,1), physEngine->GetMaterial("testMat"), {55,0,0});
-	art->AddLinks(PxTransform(0, 5, -14), { 0,1,1 }, 1, 50);
-	art->AddArticulator();
-	AddObject(art);
+	//auto d = new TestCube(PxTransform({ 5,50, 0 }));
+	//AddObject(d);
+
+	//auto art = new Articulator(PxBoxGeometry(1,1,1), physEngine->GetMaterial("testMat"), {55,0,0});
+	//art->AddLinks(PxTransform(0, 5, -14), { 0,1,1 }, 1, 50);
+	//art->AddArticulator();
+	//AddObject(art);
 }
 
 //calls update on every GameObject
@@ -143,12 +148,10 @@ void Game::AddObjects() {
 	if (addQueue.empty())
 		return;
 
-	for (auto& obj : addQueue) {
-		//obj->Start();
-		objectList.push_back(obj);
+	while(!addQueue.empty()) {
+		objectList.push_back(addQueue.back());
+		addQueue.pop_back();
 	}
-
-	addQueue.clear();
 }
 
 //deletes and frees objects in deleteQueue from memory

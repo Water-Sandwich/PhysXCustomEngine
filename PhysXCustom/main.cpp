@@ -20,7 +20,6 @@ int main(int argc, char** argv) {
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 
 	game = new Game("myGame", 960, 720);
-	InputHandler::setup(960, 720, 960, 720);
 
 	glutSetKeyRepeat(GLUT_KEY_REPEAT_OFF);
 	glutKeyboardFunc(InputHandler::onKeyDown); //GLUT will call onKeyDown whenever user presses a keyboard button

@@ -43,12 +43,20 @@
     <ClCompile Include="Cloth.cpp">
       <Filter>DerivedObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Articulator.cpp" />
+    <ClCompile Include="PrismaticJoint.cpp" />
+    <ClCompile Include="SphericalJoint.cpp" />
+    <ClCompile Include="House.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="HouseBrick.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Listener.h" />
-    <ClInclude Include="MouseState.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="StaticObject.h">
       <Filter>Physics</Filter>
@@ -79,7 +87,6 @@
     <ClInclude Include="UserData.h">
       <Filter>Physics</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Joint.h">
       <Filter>Joints</Filter>
     </ClInclude>
@@ -95,6 +102,15 @@
     <ClInclude Include="Cloth.h">
       <Filter>DerivedObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Articulator.h" />
+    <ClInclude Include="PrismaticJoint.h" />
+    <ClInclude Include="SphericalJoint.h" />
+    <ClInclude Include="House.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="HouseBrick.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Physics">
@@ -105,6 +121,9 @@
     </Filter>
     <Filter Include="Joints">
       <UniqueIdentifier>{17378121-506b-4525-8100-afdc632ae156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{0f927add-ac87-4c07-a20d-2c42033e9876}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
