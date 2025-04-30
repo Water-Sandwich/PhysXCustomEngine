@@ -29,22 +29,7 @@ private:
 	static physx::PxFilterFlags MyFilterShader(
 		physx::PxFilterObjectAttributes attributesA, physx::PxFilterData filterDataA,
 		physx::PxFilterObjectAttributes attributesB, physx::PxFilterData filterDataB,
-		physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize)
-	{
-		// If either object is a trigger.
-		if (physx::PxFilterObjectIsTrigger(attributesA) || physx::PxFilterObjectIsTrigger(attributesB))
-		{
-			pairFlags = physx::PxPairFlag::eTRIGGER_DEFAULT;
-			return physx::PxFilterFlags();
-		}
-
-		pairFlags = physx::PxPairFlag::eCONTACT_DEFAULT;
-
-		// Custom collision filtering handling:
-		// ---
-
-		return physx::PxFilterFlags();
-	}
+		physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize);
 
 
 public:
@@ -71,4 +56,7 @@ public:
 	static physx::PxRevoluteJoint* createRevoluteJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
 	static physx::PxClothFabric* createClothFabric(physx::PxClothMeshDesc* mesh, physx::PxVec3 _gravity = gravity);
 	static physx::PxCloth* createCloth(const physx::PxTransform& pose, physx::PxClothFabric* fabric, const std::vector<physx::PxClothParticle>& particles, physx::PxClothFlags flags = physx::PxClothFlags());
+	static physx::PxShape* createShape(const physx::PxGeometry& geometry, const physx::PxMaterial* material);
+	static physx::PxArticulation* createArticulation();
+	static void addArticulation(physx::PxArticulation* art);
 };
