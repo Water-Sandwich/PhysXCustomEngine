@@ -10,4 +10,7 @@ namespace Renderer {
 	void RenderSphere(const physx::PxGeometryHolder& geometry);
 	void RenderPlane(physx::PxShape* const shape);
 	void RenderCapsule(const physx::PxGeometryHolder& geometry);
+	void RenderBox(const physx::PxGeometryHolder& geometry);
+	void RenderConvexMesh(const physx::PxGeometryHolder& geometry);
+	void RenderTriangleMesh(const physx::PxGeometryHolder& geometry);
 }
