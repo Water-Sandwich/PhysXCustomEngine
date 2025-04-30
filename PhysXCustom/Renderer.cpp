@@ -192,3 +192,66 @@ void Renderer::RenderTriangleMesh(const physx::PxGeometryHolder& geometry)
 		glEnd();
 	}
 }
+
+void Renderer::RenderCloth(const Cloth& cloth)
+{
+	const PxClothMeshDesc* mesh_desc = cloth.getMesh();
+	PxVec3* color = cloth.getColor();
+
+	PxU32 quad_count = mesh_desc->quads.count;
+	PxU32* quads = (PxU32*)mesh_desc->quads.data;
+
+	auto* clothActor = ((PxCloth*)cloth.actor);
+
+	std::vector<PxVec3> verts(clothActor->getNbParticles());
+	std::vector<PxVec3> norms(verts.size(), PxVec3(0.f, 0.f, 0.f));
+
+	//get verts data
+	clothActor->lockParticleData();
+
+	PxClothParticleData* particle_data = clothActor->lockParticleData();
+	if (!particle_data)
+		return;
+	// copy vertex positions
+	for (PxU32 j = 0; j < verts.size(); j++)
+		verts[j] = particle_data->particles[j].pos;
+
+	particle_data->unlock();
+
+	for (PxU32 i = 0; i < quad_count * 4; i += 4)
+	{
+		PxVec3 v0 = verts[quads[i]];
+		PxVec3 v1 = verts[quads[i + 1]];
+		PxVec3 v2 = verts[quads[i + 2]];
+		PxVec3 n = -((v1 - v0).cross(v2 - v0));
+
+		norms[quads[i]] += n;
+		norms[quads[i + 1]] += n;
+		norms[quads[i + 2]] += n;
+		norms[quads[i + 3]] += n;
+	}
+
+	for (PxU32 i = 0; i < norms.size(); i++)
+		norms[i].normalize();
+
+	PxTransform pose = clothActor->getGlobalPose();
+	PxMat44 shapePose(pose);
+
+	glColor4f(color->x, color->y, color->z, 1.f);
+
+	glPushMatrix();
+	glMultMatrixf((float*)&shapePose);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+
+	glVertexPointer(3, GL_FLOAT, sizeof(PxVec3), &verts.front());
+	glNormalPointer(GL_FLOAT, sizeof(PxVec3), &norms.front());
+
+	glDrawElements(GL_QUADS, quad_count * 4, GL_UNSIGNED_INT, quads);
+
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+
+	glPopMatrix();
+}

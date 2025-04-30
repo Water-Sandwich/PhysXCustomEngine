@@ -1,5 +1,6 @@
 #include "PhysicsEngine.h"
 #include "InputHandler.h"
+#include <PxPhysics.h>
 
 #include <PxActor.h>
 #include <cassert> //TODO: Remove asserts for release build
@@ -40,11 +41,14 @@ void PhysicsEngine::PxInit() {
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate("localhost", 5425, 10);
 	pvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
 	ASSERT_PTR(pvd);
+	PxVisualizationParameter a;
 
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, PxTolerancesScale(), true, pvd);
 	ASSERT_PTR(physics);
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(PxTolerancesScale()));
 	ASSERT_PTR(cooking);
+	PxInitExtensions(*physics, pvd);
+	
 
 	PxSetup();
 }
@@ -61,10 +65,11 @@ void PhysicsEngine::PxSetup()
 
 	mainScene = physics->createScene(sceneDesc);
 
-	if (!mainScene)
-		throw "Main Scene failed to init";
+	ASSERT_PTR(mainScene);
 
-	mainScene->setGravity({ 10,-9.81,0 });
+	mainScene->getScenePvdClient()->setScenePvdFlags(PxPvdSceneFlag::eTRANSMIT_CONSTRAINTS | PxPvdSceneFlag::eTRANSMIT_SCENEQUERIES | PxPvdSceneFlag::eTRANSMIT_CONTACTS);
+
+	mainScene->setGravity(gravity);
 	CreateMaterials();
 }
 
@@ -134,4 +139,14 @@ physx::PxFixedJoint* PhysicsEngine::createFixedJoint(physx::PxRigidActor* actor1
 physx::PxRevoluteJoint* PhysicsEngine::createRevoluteJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2)
 {
 	return PxRevoluteJointCreate(*instance->physics, actor1, frame1, actor2, frame2);
+}
+
+physx::PxClothFabric* PhysicsEngine::createClothFabric(physx::PxClothMeshDesc* mesh, physx::PxVec3 _gravity)
+{
+	return PxClothFabricCreate(*instance->physics, *mesh, gravity);
+}
+
+physx::PxCloth* PhysicsEngine::createCloth(const physx::PxTransform& pose, physx::PxClothFabric* fabric, const std::vector<physx::PxClothParticle>& particles, physx::PxClothFlags flags)
+{
+	return instance->physics->createCloth(pose, *fabric, &particles[0], flags);
 }

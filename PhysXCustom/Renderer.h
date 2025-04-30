@@ -1,5 +1,6 @@
 #pragma once
 #include <PxPhysicsAPI.h>
+#include "Cloth.h"
 
 namespace Renderer {
 	void Setup(int x, int y, const char* title);
@@ -13,4 +14,5 @@ namespace Renderer {
 	void RenderBox(const physx::PxGeometryHolder& geometry);
 	void RenderConvexMesh(const physx::PxGeometryHolder& geometry);
 	void RenderTriangleMesh(const physx::PxGeometryHolder& geometry);
+	void RenderCloth(const Cloth& cloth);
 }

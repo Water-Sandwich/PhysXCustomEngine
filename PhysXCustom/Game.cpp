@@ -13,6 +13,7 @@
 #include "TestCube.h"
 #include "RevoluteJoint.h"
 #include "Floor.h"
+#include "Cloth.h"
 using namespace physx;
 
 //Game has an addList and deleteList. the most important list is objectList
@@ -84,10 +85,13 @@ void Game::Start() {
 	//auto c = new RevoluteJoint((PxRigidActor*)a->actor, { 5,5,0 }, (PxRigidActor*)b->actor, { -5,-5,0 });
 	//c->SetDriveVelocity(10);
 	//AddObject(c);
+  
+  auto cloth = new Cloth(PxTransform({ 0,20,0 }), { 5,5 }, { 10,10 });
+	AddObject(cloth);
 
 	auto d = new TestCube(PxTransform({ 5,50, 0 }));
 	AddObject(d);
-
+  
 	AddObject(new Floor());
 }
 
