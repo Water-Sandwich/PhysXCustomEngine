@@ -147,7 +147,7 @@ void House::MakeCrossBeams(const physx::PxVec3& beamSize, const physx::PxVec3 po
 House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& brickSize, const physx::PxTransform& pose, const physx::PxVec3& color, float gap)
 {
 	MakeBricks(wallHeight, bricksX, bricksY, brickSize, pose, color, gap);
-	PxVec3 beamSize = { 0.2, wallHeight * brickSize.y, 0.2 };
+	PxVec3 beamSize = { 0.8, wallHeight * brickSize.y, 0.8 };
 
 	float h = (wallHeight * brickSize.y) + (pose.p.y / 2);
 
@@ -161,16 +161,20 @@ House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& bric
 	PxTransform floorPose = pose;
 	floorPose.p.x += brickSize.x * bricksX;
 	floorPose.p.z += brickSize.x * bricksY;
-	floorPose.p.y += brickSize.y * wallHeight * 2;
+	floorPose.p.y += brickSize.y * wallHeight * 2.1f;
 
 	MakeBeams(beamSize, positions);
 
-	auto floor = new HouseFloor(floorPose, { floorPose.p.x * 1.2f, 1, floorPose.p.z * 1.2f }, { .2f,.2f,.2f });
+	PxVec3 ceilingColor = { .64f,.2f,.2f };
+	auto floor = new HouseFloor(floorPose, { floorPose.p.x * 1.2f, 1, floorPose.p.z * 1.2f }, ceilingColor);
 	floor->AddThis();
 
-	auto a = PxVec2(20.f, 20.f);
-	auto b = PxVec2(12.f, 12.f);
-	auto c = PxVec3(0, 0, 1);
-	auto cloth = new Cloth(PxTransform({ -4,(brickSize.y * wallHeight * 2) + 3,-4 }), a, b, c);
+	auto size = PxVec2(floorPose.p.x * 2.5f, floorPose.p.z * 2.5f);
+	auto subDivisions = PxVec2(32.f, 32.f);
+	floorPose = pose;
+	floorPose.p.x -= 8;
+	floorPose.p.z -= 8;
+	floorPose.p.y += (wallHeight * brickSize.y) + 20;
+	auto cloth = new Cloth(floorPose, size, subDivisions, ceilingColor);
 	cloth->AddThis();
 }

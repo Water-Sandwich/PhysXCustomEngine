@@ -66,7 +66,7 @@ Crane::Crane(const physx::PxVec3& Position)
 	pitch->SetDriveVelocity(0);
 
 	pos.x -= 6;
-	auto art = new Articulator(PxSphereGeometry(2), PhysicsEngine::GetMaterial("castIron"), { 0,0,0 });
+	auto art = new Articulator(PxSphereGeometry(2), PhysicsEngine::GetMaterial("forgedSteel"), { 0,0,0 });
 	art->AddLinks(PxTransform(pos, left), { -6,0,0 }, 30, 7);
 	art->AddArticulator();
 	art->AddThis();
@@ -98,7 +98,7 @@ CraneSegment::CraneSegment(const physx::PxVec3& Position, float length) : Dynami
 	SetMaterial("steel");
 	CreateShape(physx::PxBoxGeometry(2, length, 2), { 0.2f, 0.2f, 0 });
 	CreateShape(physx::PxBoxGeometry(3,3,3), { 0.2f, 0.2f, 0 });
-	SetDensity(1);
+	SetDensity(8.05);
 	InitShapes();
 }
 
@@ -109,7 +109,7 @@ void CraneSegment::Render()
 
 Ball::Ball(const physx::PxVec3& Position) : DynamicObject(PxTransform(Position))
 {
-	SetMaterial("castIron");
+	SetMaterial("forgedSteel");
 	CreateShape(physx::PxSphereGeometry(4),  { 0.2f, 0.2f, 0 });
 	SetDensity(1);
 	InitShapes();

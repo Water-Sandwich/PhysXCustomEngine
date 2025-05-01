@@ -88,7 +88,7 @@ void Game::Start() {
 
 	auto floor = new Floor();
 	AddObject(floor);
-	auto house = new House(12, 6, 10, UKStandardBrick, PxTransform(0, UKStandardBrick.y * 2, 0), BrickColor);
+	auto house = new House(12, 10, 15, UKStandardBrick, PxTransform(0, UKStandardBrick.y * 2, 0), BrickColor);
 	AddObject(house);
 
 	auto crane = new Crane({ -20,1,-20 });

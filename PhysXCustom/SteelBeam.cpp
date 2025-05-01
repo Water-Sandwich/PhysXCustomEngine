@@ -6,7 +6,7 @@ SteelBeam::SteelBeam(const physx::PxVec3& beamSize, const physx::PxTransform& po
 {
 	SetMaterial("testMat");
 	CreateShape(PxBoxGeometry(beamSize), color);
-	SetDensity(1);
+	SetDensity(7.75);
 	InitShapes();
 	bottom = { 0, -bottom.y, 0 };
 	pos = pose.p;
