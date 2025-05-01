@@ -8,6 +8,7 @@ DynamicObject::DynamicObject(const physx::PxTransform& pose) : PxGameObject()
 {
     actor = PhysicsEngine::createDynamicActor(pose);
     PhysicsEngine::AddActor(actor);
+    //((PxRigidDynamic*)actor)->putToSleep();
 }
 
 physx::PxShape* DynamicObject::CreateShape(const physx::PxGeometry& geometry, const physx::PxVec3& colour)

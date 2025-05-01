@@ -18,6 +18,7 @@
 #include "Articulator.h"
 #include "House.h"
 #include "FixedJoint.h"
+#include "Crane.h"
 
 using namespace physx;
 
@@ -90,9 +91,8 @@ void Game::Start() {
 	auto house = new House(12, 6, 10, UKStandardBrick, PxTransform(0, UKStandardBrick.y * 2, 0), BrickColor);
 	AddObject(house);
 
-	for (auto beam : house->beams){
-		auto joint = new FixedJoint(beam, beam->getBottom(), floor, PxTransform(PxIdentity));
-	}
+	auto crane = new Crane({ -20,1,-20 });
+	AddObject(crane);
 
 	//auto a = new TestCube(PxTransform({ 0,5,0 }));
 	//AddObject(a);

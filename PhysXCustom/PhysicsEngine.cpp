@@ -125,6 +125,11 @@ void PhysicsEngine::CreateMaterials()
 
 	CreateMaterial("testMat", .5f, .5f, .5f);
 
+	CreateMaterial("brick", 0.6f, 0.5f, .2f);
+	CreateMaterial("steel", .8f, .16f, 0.7f);
+	CreateMaterial("concrete", .85f, .75f, 0.3f);
+	CreateMaterial("castIron", .4f, .1f, 0.2f);
+
 	// further materials can be added here
 }
 

@@ -1,5 +1,6 @@
 #include "House.h"
-#include "FixedJoint.h"
+#include "RevoluteJoint.h"
+#include "Cloth.h"
 
 using namespace physx;
 
@@ -106,13 +107,41 @@ void House::MakeBricks(int wallHeight, int bricksX, int bricksY, const physx::Px
 
 void House::MakeBeams(const physx::PxVec3& beamSize, const physx::PxVec3 positions[4])
 {
-	beams.reserve(4);
+	beams.reserve(8);
 	for (int i = 0; i < 4; i++) {
 		beams.push_back(new SteelBeam(beamSize, PxTransform(positions[i]), { 0.1,0.1,0.1 }));
 	}
 
 	for (auto beam : beams)
 		beam->AddThis();
+}
+
+void House::MakeCrossBeams(const physx::PxVec3& beamSize, const physx::PxVec3 positions[4])
+{
+	for (int i = 0; i < 4; i++) {
+		int next = (i + 1) % 4;
+
+		auto bottom = beams[i]->getPos().p;
+		bottom.y -= beamSize.y;
+
+		auto top = beams[next]->getPos().p;
+		top.y += beamSize.y;
+
+		auto diff = (bottom - top);
+		
+		PxVec3 diagSize = {
+			beamSize.x,
+			diff.magnitude(),
+			beamSize.y
+		};
+
+		auto axis = bottom.cross(top);
+		//float angle = 
+
+		//auto diag = new SteelBeam();
+
+		//auto joint = new RevoluteJoint(beams[i])
+	}
 }
 
 House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& brickSize, const physx::PxTransform& pose, const physx::PxVec3& color, float gap)
@@ -129,5 +158,19 @@ House::House(int wallHeight, int bricksX, int bricksY, const physx::PxVec3& bric
 		{(beamSize.x * 2.5f) + (brickSize.x * bricksX * 2) - brickSize.z, h, (beamSize.x * 2.5f) + (brickSize.x * bricksY * 2) - brickSize.z}
 	};
 
+	PxTransform floorPose = pose;
+	floorPose.p.x += brickSize.x * bricksX;
+	floorPose.p.z += brickSize.x * bricksY;
+	floorPose.p.y += brickSize.y * wallHeight * 2;
+
 	MakeBeams(beamSize, positions);
+
+	auto floor = new HouseFloor(floorPose, { floorPose.p.x * 1.2f, 1, floorPose.p.z * 1.2f }, { .2f,.2f,.2f });
+	floor->AddThis();
+
+	auto a = PxVec2(20.f, 20.f);
+	auto b = PxVec2(12.f, 12.f);
+	auto c = PxVec3(0, 0, 1);
+	auto cloth = new Cloth(PxTransform({ -4,(brickSize.y * wallHeight * 2) + 3,-4 }), a, b, c);
+	cloth->AddThis();
 }

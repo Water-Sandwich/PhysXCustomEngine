@@ -22,6 +22,7 @@
     <ClCompile Include="Articulator.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Cloth.cpp" />
+    <ClCompile Include="Crane.cpp" />
     <ClCompile Include="DistanceJoint.cpp" />
     <ClCompile Include="FixedJoint.cpp" />
     <ClCompile Include="Floor.cpp" />
@@ -49,6 +50,7 @@
     <ClInclude Include="Articulator.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cloth.h" />
+    <ClInclude Include="Crane.h" />
     <ClInclude Include="DistanceJoint.h" />
     <ClInclude Include="ErrorCallback.h" />
     <ClInclude Include="FixedJoint.h" />
