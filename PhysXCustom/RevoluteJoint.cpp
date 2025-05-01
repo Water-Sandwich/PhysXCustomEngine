@@ -6,6 +6,11 @@ RevoluteJoint::RevoluteJoint(physx::PxRigidActor* actor1, const physx::PxTransfo
 	joint = PhysicsEngine::createRevoluteJoint(actor1, frame1, actor2, frame2);
 }
 
+RevoluteJoint::RevoluteJoint(PxGameObject* actor1, const physx::PxTransform& frame1, PxGameObject* actor2, const physx::PxTransform& frame2) : Joint(actor1, actor2)
+{
+	joint = PhysicsEngine::createRevoluteJoint((physx::PxRigidActor*)actor1->actor, frame1, (physx::PxRigidActor*)actor2->actor, frame2);
+}
+
 void RevoluteJoint::SetDriveVelocity(physx::PxReal val)
 {
 	physx::PxRigidDynamic* actor1 = (physx::PxRigidDynamic*)start;

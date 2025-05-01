@@ -1,0 +1,12 @@
+#pragma once
+#include "DynamicObject.h"
+class SteelBeam : public DynamicObject
+{
+private:
+	physx::PxVec3 bottom;
+
+public:
+	SteelBeam(const physx::PxVec3& beamSize, const physx::PxTransform& pose, const physx::PxVec3& color);
+	physx::PxTransform getBottom() const;
+};
+

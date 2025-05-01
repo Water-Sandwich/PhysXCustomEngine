@@ -5,6 +5,7 @@ class DistanceJoint : public Joint
 {
 public:
 	DistanceJoint(physx::PxRigidActor* actor1, const physx::PxTransform& frame1, physx::PxRigidActor* actor2, const physx::PxTransform& frame2);
+	DistanceJoint(PxGameObject* actor1, const physx::PxTransform& frame1, PxGameObject* actor2, const physx::PxTransform& frame2);
 
 	void SetStiffness(physx::PxReal val);
 	physx::PxReal GetStiffness();

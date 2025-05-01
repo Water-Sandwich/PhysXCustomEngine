@@ -2,6 +2,7 @@
 
 #include "PxPhysicsAPI.h"
 #include "GameObject.h"
+#include "PxGameObject.h"
 
 class Joint : public GameObject
 {
@@ -11,6 +12,7 @@ public:
 	physx::PxRigidActor* end;
 
 	Joint(physx::PxRigidActor* actor1, physx::PxRigidActor* actor2);
+	Joint(PxGameObject* actor1, PxGameObject* actor2);
 
 	void Update(float dt) override {};
 

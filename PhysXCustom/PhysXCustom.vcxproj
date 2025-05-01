@@ -29,6 +29,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="House.cpp" />
     <ClCompile Include="HouseBrick.cpp" />
+    <ClCompile Include="HouseFloor.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Joint.cpp" />
     <ClCompile Include="Listener.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RevoluteJoint.cpp" />
+    <ClCompile Include="SteelBeam.cpp" />
     <ClCompile Include="TestCube.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +57,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="House.h" />
     <ClInclude Include="HouseBrick.h" />
+    <ClInclude Include="HouseFloor.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Joint.h" />
     <ClInclude Include="Listener.h" />
@@ -66,6 +69,7 @@
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="RevoluteJoint.h" />
+    <ClInclude Include="SteelBeam.h" />
     <ClInclude Include="StopWatch.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="UserData.h" />

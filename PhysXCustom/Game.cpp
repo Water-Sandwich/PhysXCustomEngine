@@ -17,6 +17,7 @@
 #include "Cloth.h"
 #include "Articulator.h"
 #include "House.h"
+#include "FixedJoint.h"
 
 using namespace physx;
 
@@ -84,9 +85,14 @@ void Game::DeleteAll() {
 void Game::Start() {
 	DeleteAll();
 
-	AddObject(new Floor());
-	AddObject(new House(6, 5, 5, UKStandardBrick, PxTransform(0, 4, 0), BrickColor));
+	auto floor = new Floor();
+	AddObject(floor);
+	auto house = new House(12, 6, 10, UKStandardBrick, PxTransform(0, UKStandardBrick.y * 2, 0), BrickColor);
+	AddObject(house);
 
+	for (auto beam : house->beams){
+		auto joint = new FixedJoint(beam, beam->getBottom(), floor, PxTransform(PxIdentity));
+	}
 
 	//auto a = new TestCube(PxTransform({ 0,5,0 }));
 	//AddObject(a);
