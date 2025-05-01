@@ -12,6 +12,8 @@
 #include "StopWatch.h"
 #include "Camera.h"
 
+#include "LevelAssets.h"
+
 //only 1 instance of this should ever exist
 class Game {
 private:
@@ -53,4 +55,10 @@ public:
 	void DeleteAll();
 
 	void Start();
+
+	void BuildWalls();
+	
+	void BuildSupports(Floor* floor);
+
+	void BuildCeiling();
 };

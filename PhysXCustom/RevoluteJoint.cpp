@@ -13,6 +13,8 @@ void RevoluteJoint::SetDriveVelocity(physx::PxReal val)
 	if (actor1) actor1->wakeUp();
 	if (actor2) actor2->wakeUp();
 	((physx::PxRevoluteJoint*)joint)->setDriveVelocity(val);
+	((physx::PxRevoluteJoint*)joint)->setDriveForceLimit(1000.0f);
+	((physx::PxRevoluteJoint*)joint)->setDriveGearRatio(1.0f);
 	((physx::PxRevoluteJoint*)joint)->setRevoluteJointFlag(physx::PxRevoluteJointFlag::eDRIVE_ENABLED, true);
 }
 

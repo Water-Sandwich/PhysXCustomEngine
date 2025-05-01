@@ -2,10 +2,10 @@
 
 #include "DynamicObject.h"
 
-class GlassFragment : public DynamicObject
+class GlassPanel : public DynamicObject
 {
 public:
-	GlassFragment(const physx::PxTransform& pose);
+	GlassPanel(const physx::PxTransform& pose);
 
 	void Update(float dt) override {};
 	void Render() override;

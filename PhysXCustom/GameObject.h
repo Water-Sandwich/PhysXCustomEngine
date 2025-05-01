@@ -5,10 +5,13 @@
 class GameObject {
 public:
 	//called every frame
-	virtual void Update(float deltaTime) = 0;
+	virtual void Update(float deltaTime) {};
 
 	//code to render just the object
 	inline virtual void Render() { };
+
+	//mark object for addition
+	virtual void AddThis();
 
 	//mark object for deletion
 	virtual void DeleteThis();

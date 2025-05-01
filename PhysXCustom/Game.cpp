@@ -74,7 +74,15 @@ void Game::DeleteAll() {
 void Game::Start() {
 	DeleteAll();
 
-	AddObject(new Floor());
+	Floor* floor = new Floor();
+	AddObject(floor);
+
+	BuildWalls();
+	BuildSupports(floor);
+	BuildCeiling();
+
+	Cannon* cannon = new Cannon({ 50, 5, 0 });
+	AddObject(cannon);
 }
 
 //calls update on every GameObject
@@ -165,4 +173,173 @@ void Game::DeleteObjects() {
 //mark to remove object next frame
 void Game::DeleteObject(GameObject* obj) {
 	instance->deleteQueue.push_back(obj);
+}
+
+void Game::BuildWalls()
+{
+	// brick information
+	float sizeX = 1.0f;
+	float sizeY = 0.5f;
+	float sizeZ = 0.5f;
+
+	// wall information
+	int bricksLength = 15;
+	int bricksHeight = 5; // Should always be a multiple of 5.
+	float wallLength = (bricksLength * sizeX);
+
+	for (int wall = 0; wall < 4; wall++)
+	{
+		float rot = wall * (PxPi / 2.0f);
+		PxQuat wallRot(rot, PxVec3(0, 1, 0));
+
+		PxVec3 wallPos;
+		switch (wall) {
+			case 0: wallPos = PxVec3(0, 0, wallLength / 2.0f + sizeZ / 2.0f); break;
+			case 1: wallPos = PxVec3(wallLength / 2.0f + sizeZ / 2.0f, 0, 0); break;
+			case 2: wallPos = PxVec3(0, 0, -(wallLength / 2.0f + sizeZ / 2.0f)); break;
+			case 3: wallPos = PxVec3(-(wallLength / 2.0f + sizeZ / 2.0f), 0, 0); break; }
+
+		PxTransform wallTransform(wallPos, wallRot);
+
+		for (int row = 0; row < bricksHeight; row++)
+		{
+			float brickPosY = (row * sizeY) + (sizeY / 2.0f);
+			bool doOffset = (row % 2 != 0);
+			doOffset ^= (wall == 1 || wall == 3);
+			const int offset = doOffset ? 1 : 0;
+
+			for (int col = 0; col < bricksLength + offset; col++)
+			{
+				float brickPosX;
+
+				if (doOffset) { brickPosX = (-wallLength / 2.0f) + (col * sizeX); }
+				else { brickPosX = (-wallLength / 2.0f) + ((col + 0.5f) * sizeX); }
+
+				PxVec3 brickPos(brickPosX, brickPosY, 0.0f);
+				PxTransform brickTransform = wallTransform.transform(PxTransform(brickPos));
+				ConcreteBlock* brick = new ConcreteBlock(brickTransform);
+				AddObject(brick);
+			}
+		}
+	}
+}
+
+void Game::BuildSupports(Floor* floor)
+{
+	float sizeX = 0.4f;
+	float sizeY = 2.5f;
+	float sizeZ = 0.4f;
+
+	int bricksLength = 15;
+	int bricksHeight = 5;
+
+	float wallLength = bricksLength * 1.0f;
+
+	for (int wall = 0; wall < 8; wall++)
+	{
+		float rot = wall * (PxPi / 2.0f);
+		PxQuat wallRot(rot, PxVec3(0, 1, 0));
+
+		float posOffset = .45f;
+
+		PxVec3 wallPos;
+		switch (wall) {
+		case 0: wallPos = PxVec3(0, 0, wallLength / 2.0f + .7f); break;
+		case 1: wallPos = PxVec3(wallLength / 2.0f + .7f, 0, 0); break;
+		case 2: wallPos = PxVec3(0, 0, -(wallLength / 2.0f + .7f)); break;
+		case 3: wallPos = PxVec3(-(wallLength / 2.0f + .7f), 0, 0); break;
+		case 4: wallPos = PxVec3(0, 0, wallLength / 2.0f - sizeZ / 2.0f); break;
+		case 5: wallPos = PxVec3(wallLength / 2.0f - sizeZ / 2.0f, 0, 0); break;
+		case 6: wallPos = PxVec3(0, 0, -(wallLength / 2.0f - sizeZ / 2.0f)); break;
+		case 7: wallPos = PxVec3(-(wallLength / 2.0f - sizeZ / 2.0f), 0, 0); break;
+		}
+
+		PxTransform wallTransform(wallPos, wallRot);
+
+		for (int row = 0; row < bricksHeight; row += 5)
+		{
+			float beamPosY = (row * 0.5f) + (sizeY / 2.0f);
+
+			for (int col = 0; col < bricksLength; col += 5)
+			{
+				float beamPosX = (-wallLength / 2.0f) + col + 0.5f;
+
+				PxVec3 beamPos(beamPosX, beamPosY, 0.0f);
+				PxTransform beamTransform = wallTransform.transform(PxTransform(beamPos));
+				SteelBeam* beam = new SteelBeam(beamTransform);
+				AddObject(beam);
+
+				PxTransform beamAnchor = PxTransform(PxIdentity);
+				PxTransform floorAchor = (((PxRigidActor*)floor->actor)->getGlobalPose()).getInverse() * beamTransform;
+
+				FixedJoint* fixedJoint = new FixedJoint((PxRigidActor*)beam->actor, beamAnchor, (PxRigidActor*)floor->actor, floorAchor);
+				fixedJoint->SetBreakable(500.0f, 500.0f);
+				AddObject(fixedJoint);
+			}
+		}
+	}
+}
+
+void Game::BuildCeiling()
+{
+	int gridCount = 8;
+	
+	float roofHeight = 2.5f;
+	float roofWidth = 16.0f;
+
+	float cellSize = roofWidth / gridCount;
+
+	std::vector<std::vector<GlassPanel*>> roofPanels(gridCount, std::vector<GlassPanel*>(gridCount, nullptr));
+
+	for (int i = 0; i < gridCount; i++)
+	{
+		for (int j = 0; j < gridCount; j++)
+		{
+			float panelPosX = (-roofWidth / 2) + (cellSize / 2) + (j * cellSize);
+			float panelPosZ = (-roofWidth / 2) + (cellSize / 2) + (i * cellSize);
+			PxVec3 panelPos(panelPosX, roofHeight, panelPosZ);
+			PxTransform panelTransform(panelPos);
+
+			GlassPanel* panel = new GlassPanel(panelTransform);
+			AddObject(panel);
+			roofPanels[i][j] = panel;
+		}
+	}
+
+	for (int i = 0; i < gridCount; i++)
+	{
+		for (int j = 0; j < gridCount; j++)
+		{
+			GlassPanel* currentPanel = roofPanels[i][j];
+			PxTransform currentPanelTransform = ((PxRigidActor*)currentPanel->actor)->getGlobalPose();
+
+			if (j < gridCount - 1)
+			{
+				GlassPanel* rightPanel = roofPanels[i][j + 1];
+				PxTransform rightPanelTransform = ((PxRigidActor*)rightPanel->actor)->getGlobalPose();
+
+				PxVec3 jointPos = (currentPanelTransform.p + rightPanelTransform.p) * 0.5f;
+				PxTransform currentAnchor = currentPanelTransform.getInverse() * PxTransform(jointPos);
+				PxTransform rightAnchor = rightPanelTransform.getInverse() * PxTransform(jointPos);
+
+				FixedJoint* fixedJoint = new FixedJoint((PxRigidActor*)currentPanel->actor, currentAnchor, (PxRigidActor*)rightPanel->actor, rightAnchor);
+				fixedJoint->SetBreakable(50.0f, 50.0f);
+				AddObject(fixedJoint);
+			}
+
+			if (i < gridCount - 1)
+			{
+				GlassPanel* frontPanel = roofPanels[i + 1][j];
+				PxTransform frontPanelTransform = ((PxRigidActor*)frontPanel->actor)->getGlobalPose();
+
+				PxVec3 jointPos = (currentPanelTransform.p + frontPanelTransform.p) * 0.5f;
+				PxTransform currentAnchor = currentPanelTransform.getInverse() * PxTransform(jointPos);
+				PxTransform frontAnchor = frontPanelTransform.getInverse() * PxTransform(jointPos);
+
+				FixedJoint* fixedJoint = new FixedJoint((PxRigidActor*)currentPanel->actor, currentAnchor, (PxRigidActor*)frontPanel->actor, frontAnchor);
+				fixedJoint->SetBreakable(50.0f, 50.0f);
+				AddObject(fixedJoint);
+			}
+		}
+	}
 }

@@ -52,13 +52,22 @@
     <ClCompile Include="Articulator.cpp">
       <Filter>Joints</Filter>
     </ClCompile>
-    <ClCompile Include="GlassFragment.cpp">
+    <ClCompile Include="GlassPanel.cpp">
       <Filter>BfsGame</Filter>
     </ClCompile>
     <ClCompile Include="SteelBeam.cpp">
       <Filter>BfsGame</Filter>
     </ClCompile>
     <ClCompile Include="ConcreteBlock.cpp">
+      <Filter>BfsGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CannonBall.cpp">
+      <Filter>BfsGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Cannon.cpp">
+      <Filter>BfsGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Wheel.cpp">
       <Filter>BfsGame</Filter>
     </ClCompile>
   </ItemGroup>
@@ -120,7 +129,7 @@
     <ClInclude Include="Articulator.h">
       <Filter>Joints</Filter>
     </ClInclude>
-    <ClInclude Include="GlassFragment.h">
+    <ClInclude Include="GlassPanel.h">
       <Filter>BfsGame</Filter>
     </ClInclude>
     <ClInclude Include="SteelBeam.h">
@@ -130,6 +139,15 @@
       <Filter>BfsGame</Filter>
     </ClInclude>
     <ClInclude Include="LevelAssets.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CannonBall.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Cannon.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Wheel.h">
       <Filter>BfsGame</Filter>
     </ClInclude>
   </ItemGroup>
