@@ -31,7 +31,7 @@ void Renderer::Setup(int x, int y, const char* title)
 	
 	PxReal ambientColor[] = { 0.2f, 0.2f, 0.2f, 1.f };
 	PxReal diffuseColor[] = { 0.7f, 0.7f, 0.7f, 1.f };
-	PxReal position[] = { 50.f, 50.f, 100.f, 0.f };
+	PxReal position[] = { 50.f, 50.f, 50.f, 0.f };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientColor);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseColor);
 	glLightfv(GL_LIGHT0, GL_POSITION, position);

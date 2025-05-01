@@ -6,9 +6,9 @@
 
 enum class Layer : int
 {
-	TestA	= (1 << 0),
-	TestB	= (1 << 1),
-	TestC	= (1 << 2)
+	Default		= (1 << 0),
+	House		= (1 << 1),
+	GameZone	= (1 << 2)
 };
 
 

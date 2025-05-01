@@ -30,6 +30,7 @@
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameZone.cpp" />
     <ClCompile Include="GlassPanel.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Joint.cpp" />
@@ -60,6 +61,7 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameZone.h" />
     <ClInclude Include="GlassPanel.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="Joint.h" />

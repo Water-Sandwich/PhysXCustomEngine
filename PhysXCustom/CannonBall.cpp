@@ -8,6 +8,14 @@ CannonBall::CannonBall(const physx::PxTransform& pose) : DynamicObject(pose)
 	InitShapes();
 }
 
+void CannonBall::Update(float dt)
+{
+	DynamicObject::Update(dt);
+
+	timer += dt;
+	if (timer > duration) { DeleteThis(); }
+}
+
 void CannonBall::Render()
 {
 	RenderShapes();

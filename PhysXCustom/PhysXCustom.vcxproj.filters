@@ -70,6 +70,9 @@
     <ClCompile Include="Wheel.cpp">
       <Filter>BfsGame</Filter>
     </ClCompile>
+    <ClCompile Include="GameZone.cpp">
+      <Filter>BfsGame</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -148,6 +151,9 @@
       <Filter>BfsGame</Filter>
     </ClInclude>
     <ClInclude Include="Wheel.h">
+      <Filter>BfsGame</Filter>
+    </ClInclude>
+    <ClInclude Include="GameZone.h">
       <Filter>BfsGame</Filter>
     </ClInclude>
   </ItemGroup>
