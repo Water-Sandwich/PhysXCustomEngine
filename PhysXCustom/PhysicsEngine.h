@@ -38,6 +38,7 @@ public:
 
 	static void AddActor(physx::PxActor* actor);
 	static void RemoveActor(physx::PxActor* actor);
+	static const physx::PxScene* GetScene();
 
 	void PxInit();
 	void PxSetup();

@@ -56,6 +56,11 @@ void PhysicsEngine::RemoveActor(physx::PxActor* actor)
 	instance->mainScene->removeActor(*actor);
 }
 
+const physx::PxScene* PhysicsEngine::GetScene()
+{
+	return instance->mainScene;
+}
+
 void PhysicsEngine::PxInit() {
 	foundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
 	ASSERT_PTR(foundation);
@@ -125,11 +130,11 @@ void PhysicsEngine::CreateMaterials()
 
 	CreateMaterial("testMat", .5f, .5f, .5f);
 
-	CreateMaterial("concrete", .85f, .65f, .1f);
-	CreateMaterial("steel", 3.75f, 3.6f, .2f);
-	CreateMaterial("glass", .4f, .3f, .1f);
-	CreateMaterial("wheel", .5f, .5f, .25f);
-	CreateMaterial("cannon", .5f, .5f, .25f);
+	// Based on https://www.engineeringtoolbox.com/friction-coefficients-d_778.html
+	CreateMaterial("concrete", .75f, .65f, .1f);
+	CreateMaterial("steel", 0.6f, 0.5f, .1f);
+	CreateMaterial("glass", .8f, .4f, .1f);
+	CreateMaterial("wheel", 1.0f, 0.8f, .25f);
 }
 
 void PhysicsEngine::CreateMaterial(string name, PxReal staticFriction, PxReal dynamicFriction, PxReal restitution)

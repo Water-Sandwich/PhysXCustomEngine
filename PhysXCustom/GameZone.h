@@ -7,11 +7,14 @@ class GameZone : public StaticObject
 public:
 	GameZone(const physx::PxTransform& pose);
 
-	bool IsHouseCleared() const;
+	bool HousePartsInZone() const;
+
+	void Update(float dt) override;
 
 	virtual void Render() override;
 
 private:
+	physx::PxVec3 extents;
 	int initialHouseParts;
 	float clearPercent;
 };

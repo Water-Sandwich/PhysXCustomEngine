@@ -81,6 +81,9 @@ void Game::Start() {
 	BuildSupports(floor);
 	BuildCeiling();
 
+	GameZone* gameZone = new GameZone({ 0, 0, 0 });
+	AddObject(gameZone);
+
 	Cannon* cannon = new Cannon({ 50, 5, 0 });
 	AddObject(cannon);
 }
@@ -178,9 +181,9 @@ void Game::DeleteObject(GameObject* obj) {
 void Game::BuildWalls()
 {
 	// brick information
-	float sizeX = 1.0f;
-	float sizeY = 0.5f;
-	float sizeZ = 0.5f;
+	float sizeX = .43f;
+	float sizeY = 0.205f;
+	float sizeZ = 0.146f;
 
 	// wall information
 	int bricksLength = 15;
@@ -194,10 +197,10 @@ void Game::BuildWalls()
 
 		PxVec3 wallPos;
 		switch (wall) {
-			case 0: wallPos = PxVec3(0, 0, wallLength / 2.0f + sizeZ / 2.0f); break;
-			case 1: wallPos = PxVec3(wallLength / 2.0f + sizeZ / 2.0f, 0, 0); break;
-			case 2: wallPos = PxVec3(0, 0, -(wallLength / 2.0f + sizeZ / 2.0f)); break;
-			case 3: wallPos = PxVec3(-(wallLength / 2.0f + sizeZ / 2.0f), 0, 0); break; }
+			case 0: wallPos = PxVec3(0, 0, wallLength / 2.0f + sizeZ / 2.0f + 0.05f); break;
+			case 1: wallPos = PxVec3(wallLength / 2.0f + sizeZ / 2.0f + 0.05f, 0, 0); break;
+			case 2: wallPos = PxVec3(0, 0, -(wallLength / 2.0f + sizeZ / 2.0f + 0.05f)); break;
+			case 3: wallPos = PxVec3(-(wallLength / 2.0f + sizeZ / 2.0f + 0.05f), 0, 0); break; }
 
 		PxTransform wallTransform(wallPos, wallRot);
 
@@ -226,43 +229,43 @@ void Game::BuildWalls()
 
 void Game::BuildSupports(Floor* floor)
 {
-	float sizeX = 0.4f;
-	float sizeY = 2.5f;
-	float sizeZ = 0.4f;
+	float sizeX = 0.2f;
+	float sizeY = 1.025f;
+	float sizeZ = 0.2f;
 
 	int bricksLength = 15;
 	int bricksHeight = 5;
 
-	float wallLength = bricksLength * 1.0f;
+	float wallLength = bricksLength * .43f;
+	float outerOffset = (wallLength / 2.0f) + (0.146f * 2.0f) + 0.02f;
+	float innerOffset = (wallLength / 2.0f) - (0.146f / 2.0f);
 
 	for (int wall = 0; wall < 8; wall++)
 	{
 		float rot = wall * (PxPi / 2.0f);
 		PxQuat wallRot(rot, PxVec3(0, 1, 0));
 
-		float posOffset = .45f;
-
 		PxVec3 wallPos;
 		switch (wall) {
-		case 0: wallPos = PxVec3(0, 0, wallLength / 2.0f + .7f); break;
-		case 1: wallPos = PxVec3(wallLength / 2.0f + .7f, 0, 0); break;
-		case 2: wallPos = PxVec3(0, 0, -(wallLength / 2.0f + .7f)); break;
-		case 3: wallPos = PxVec3(-(wallLength / 2.0f + .7f), 0, 0); break;
-		case 4: wallPos = PxVec3(0, 0, wallLength / 2.0f - sizeZ / 2.0f); break;
-		case 5: wallPos = PxVec3(wallLength / 2.0f - sizeZ / 2.0f, 0, 0); break;
-		case 6: wallPos = PxVec3(0, 0, -(wallLength / 2.0f - sizeZ / 2.0f)); break;
-		case 7: wallPos = PxVec3(-(wallLength / 2.0f - sizeZ / 2.0f), 0, 0); break;
+		case 0: wallPos = PxVec3(0, 0, outerOffset); break;
+		case 1: wallPos = PxVec3(outerOffset, 0, 0); break;
+		case 2: wallPos = PxVec3(0, 0, -outerOffset); break;
+		case 3: wallPos = PxVec3(-outerOffset, 0, 0); break;
+		case 4: wallPos = PxVec3(0.1f, 0, innerOffset); break;
+		case 5: wallPos = PxVec3(innerOffset, 0, 0.1f); break;
+		case 6: wallPos = PxVec3(-0.1f, 0, -innerOffset); break;
+		case 7: wallPos = PxVec3(-innerOffset, 0, -0.1f); break;
 		}
 
 		PxTransform wallTransform(wallPos, wallRot);
 
 		for (int row = 0; row < bricksHeight; row += 5)
 		{
-			float beamPosY = (row * 0.5f) + (sizeY / 2.0f);
+			float beamPosY = (row * 0.1025f) + (sizeY / 2.0f);
 
 			for (int col = 0; col < bricksLength; col += 5)
 			{
-				float beamPosX = (-wallLength / 2.0f) + col + 0.5f;
+				float beamPosX = (-wallLength / 2.0f) + col * 0.43f;
 
 				PxVec3 beamPos(beamPosX, beamPosY, 0.0f);
 				PxTransform beamTransform = wallTransform.transform(PxTransform(beamPos));
