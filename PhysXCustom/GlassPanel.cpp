@@ -3,7 +3,7 @@
 GlassPanel::GlassPanel(const physx::PxTransform& pose) : DynamicObject(pose)
 {
 	SetMaterial("glass");
-	CreateShape(physx::PxBoxGeometry(.53f, 0.005f, .53f), { 0, 0, .5f });
+	CreateShape(physx::PxBoxGeometry(1.0f, 0.025f, 1.0f), { 0, 0, .5f });
 	SetDensity(2500.f);
 	InitShapes();
 

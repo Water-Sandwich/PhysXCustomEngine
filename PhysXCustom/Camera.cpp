@@ -5,8 +5,8 @@ using namespace physx;
 physx::PxVec3 inputdir{ 0,0,0 };
 
 Camera::Camera() {
-	pos = { 0, 5, 15 };
-	dir = { 1, 0, 0, };
+	pos = { 0, 5, -60 };
+	dir = { -1, 0, 3, };
 }
 
 void Camera::Update(float dt)

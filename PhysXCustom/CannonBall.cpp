@@ -3,8 +3,8 @@
 CannonBall::CannonBall(const physx::PxTransform& pose) : DynamicObject(pose)
 {
 	SetMaterial("steel");
-	CreateShape(physx::PxSphereGeometry(1.0f), { 0.2f, 0.2f, 0.2f });
-	SetDensity(7.5f);
+	CreateShape(physx::PxSphereGeometry(0.75f), { 0.2f, 0.2f, 0.2f });
+	SetDensity(7500.f);
 	InitShapes();
 }
 

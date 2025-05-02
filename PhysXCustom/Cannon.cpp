@@ -13,18 +13,22 @@ Cannon::Cannon(const physx::PxTransform& pose) : DynamicObject(pose)
 	auto s2 = CreateShape(physx::PxCapsuleGeometry(0.3f, 0.75f), { 0.2f, 0.2f, 0.2f });
 	s2->setLocalPose(physx::PxTransform(physx::PxVec3(0, 0.45f, 1.25f), physx::PxQuat(physx::PxHalfPi, physx::PxVec3(0, 1, 0))));
 	
-	SetDensity(20.0f);
+	SetDensity(7500.0f);
 	InitShapes();
 
-	physx::PxVec3 wheelPositions[4] =
+	physx::PxVec3 wheelPositions[8] =
 	{
 		physx::PxVec3(-0.8f, -0.5f, 1.2f),
 		physx::PxVec3(0.8f, -0.5f, 1.2f),
 		physx::PxVec3(-0.8f, -0.5f, -1.2f),
 		physx::PxVec3(0.8f, -0.5f, -1.2f),
+		physx::PxVec3(-0.8f, -0.5f, 0.4f),
+		physx::PxVec3(0.8f, -0.5f, 0.4f),
+		physx::PxVec3(-0.8f, -0.5f, -0.4f),
+		physx::PxVec3(0.8f, -0.5f, -0.4f),
 	};
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		physx::PxTransform wheelPos(wheelPositions[i]);
 
@@ -43,17 +47,18 @@ Cannon::Cannon(const physx::PxTransform& pose) : DynamicObject(pose)
 
 void Cannon::Update(float dt)
 {
-	float speedMult = 20.0f;
-
+	float speedMult = 50.0f;
 	float goalSpeed = inputdir.x * speedMult;
+	if (goalSpeed == 0) { goalSpeed = abs(inputdir.y) * speedMult; } // For turning while stationary.
+
 	for (int i = 0; i < joints.size(); i++)
 	{
 		float wheelSpeed = goalSpeed;
 
-		if (inputdir.y < 0 && (i == 0 || i == 2)) // Slow left wheels when turning left
-			wheelSpeed *= 0;
-		if (inputdir.y > 0 && (i == 1 || i == 3)) // Slow right wheels when turning right
-			wheelSpeed *= 0;
+		if (inputdir.y < 0 && (i % 2 == 0)) // Reverse left wheels when turning left
+			wheelSpeed *= -1.f;
+		if (inputdir.y > 0 && (i % 2 != 0)) // Reverse right wheels when turning right
+			wheelSpeed *= -1.f;
 
 		joints[i]->SetDriveVelocity(wheelSpeed);
 	}
