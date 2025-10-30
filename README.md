@@ -2,7 +2,7 @@
 
 ## Desription
 
-PhysXCustomEngine is a collaborative project trying to adapt the engine from my earlier Boston Simulator project for use in a 3D physics simulation. It features 2 scenes under different git branches.
+PhysXCustomEngine is a collaborative project trying to adapt the engine from my earlier Boston Simulator project for use in a 3D physics simulation. It features 2 scenes under different git branches. Renderering system reverse engineered using a base given by Olvier Szymanezyk.
 
 <img width="724" height="340" alt="image" src="https://github.com/user-attachments/assets/b57a624a-db53-4bd4-9eaa-076b9841e762" />
 
