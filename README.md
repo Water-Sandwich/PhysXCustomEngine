@@ -4,6 +4,10 @@
 
 PhysXCustomEngine is a collaborative project trying to adapt the engine from my earlier Boston Simulator project for use in a 3D physics simulation. It features 2 scenes under different git branches.
 
+<img width="724" height="340" alt="image" src="https://github.com/user-attachments/assets/b57a624a-db53-4bd4-9eaa-076b9841e762" />
+
+<img width="734" height="342" alt="image" src="https://github.com/user-attachments/assets/890ee43b-31bc-466e-9edb-3169cc53b9d1" />
+
 ## Dependencies
 
 - Nvidia PhysX 3.4.2
